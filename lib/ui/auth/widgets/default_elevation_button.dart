@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DefaultElevatedButton extends StatelessWidget {
   const DefaultElevatedButton(
@@ -26,12 +27,12 @@ class DefaultElevatedButton extends StatelessWidget {
         elevation: 0,
         backgroundColor: backgroundColor,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(20.r),
         ),
         side: const BorderSide(color: Colors.transparent),
         fixedSize: Size(
           width ?? screenSize.width,
-          height ?? screenSize.height * 0.085,
+          height ?? 80.h,
         ),
       ),
       onPressed: isDisabled ? null : onPressed,

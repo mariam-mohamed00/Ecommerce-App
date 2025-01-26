@@ -1,5 +1,6 @@
 import 'package:app_e_commerce/ui/utils/my_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: must_be_immutable
 class CustomTextFormField extends StatefulWidget {
@@ -39,20 +40,20 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
             .copyWith(color: MyTheme.blackColor, fontWeight: FontWeight.w300),
         hintText: widget.hintText,
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide(color: MyTheme.whiteColor, width: 1),
+          borderRadius: BorderRadius.circular(20.r),
+          borderSide: BorderSide(color: MyTheme.whiteColor, width: 1.w),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide(color: MyTheme.whiteColor, width: 1),
+          borderRadius: BorderRadius.circular(20.r),
+          borderSide: BorderSide(color: MyTheme.whiteColor, width: 1.w),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide(color: MyTheme.whiteColor, width: 1),
+          borderRadius: BorderRadius.circular(20.r),
+          borderSide: BorderSide(color: MyTheme.whiteColor, width: 1.w),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
-          borderSide: BorderSide(color: MyTheme.whiteColor, width: 1),
+          borderRadius: BorderRadius.circular(20.r),
+          borderSide: BorderSide(color: MyTheme.whiteColor, width: 1.w),
         ),
       ),
     );
