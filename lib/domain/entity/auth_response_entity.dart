@@ -5,10 +5,10 @@ class UserEntity {
   UserEntity({this.name, this.email});
 }
 
-class RegisterResponseEntity {
+class AuthResponseEntity {
   String? message;
   UserEntity? user;
   String? token;
   String? statusMsg;
-  RegisterResponseEntity({this.message, this.user, this.token, this.statusMsg});
+  AuthResponseEntity({this.message, this.user, this.token, this.statusMsg});
 }

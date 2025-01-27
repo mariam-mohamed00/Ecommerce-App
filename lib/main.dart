@@ -1,5 +1,5 @@
-import 'package:app_e_commerce/routing/app_router.dart';
-import 'package:app_e_commerce/routing/routes.dart';
+import 'package:app_e_commerce/ui/routing/app_router.dart';
+import 'package:app_e_commerce/ui/routing/routes.dart';
 import 'package:app_e_commerce/ui/utils/my_bloc_observer.dart';
 import 'package:app_e_commerce/ui/utils/my_theme.dart';
 import 'package:flutter/material.dart';

@@ -10,7 +10,7 @@ class PasswordTextFormField extends StatefulWidget {
     required this.hintText,
   });
 
-  final String? Function(String?)? onChanged;
+  final void Function(String?)? onChanged;
   final String? Function(String?)? validator;
   final String hintText;
 
@@ -33,39 +33,38 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
       onTapOutside: (_) => FocusScope.of(context).unfocus(),
       style: Theme.of(context).textTheme.labelMedium!.copyWith(fontSize: 16),
       decoration: InputDecoration(
-        fillColor: MyTheme.whiteColor,
-        filled: true,
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20.r),
-          borderSide: BorderSide(color: MyTheme.whiteColor, width: 1.w),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20.r),
-          borderSide: BorderSide(color: MyTheme.whiteColor, width: 1.w),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20.r),
-          borderSide: BorderSide(color: MyTheme.whiteColor, width: 1.w),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20.r),
-          borderSide: BorderSide(color: MyTheme.whiteColor, width: 1.w),
-        ),
-        hintText: widget.hintText,
-        hintStyle: Theme.of(context)
-            .textTheme
-            .labelMedium!
-            .copyWith(color: MyTheme.blackColor, fontWeight: FontWeight.w300),
-        suffixIcon: IconButton(
-          icon: Icon(
-            color: MyTheme.blackColor,
-            _isObscure
-                ? Icons.visibility_outlined
-                : Icons.visibility_off_outlined,
+          fillColor: MyTheme.whiteColor,
+          filled: true,
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20.r),
+            borderSide: BorderSide(color: MyTheme.whiteColor, width: 1.w),
           ),
-          onPressed: () => setState(() => _isObscure = !_isObscure),
-        ),
-      ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20.r),
+            borderSide: BorderSide(color: MyTheme.whiteColor, width: 1.w),
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20.r),
+            borderSide: BorderSide(color: MyTheme.whiteColor, width: 1.w),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20.r),
+            borderSide: BorderSide(color: MyTheme.whiteColor, width: 1.w),
+          ),
+          hintText: widget.hintText,
+          hintStyle: Theme.of(context)
+              .textTheme
+              .labelMedium!
+              .copyWith(color: MyTheme.blackColor, fontWeight: FontWeight.w300),
+          suffixIcon: IconButton(
+            icon: Icon(
+              color: MyTheme.blackColor,
+              _isObscure
+                  ? Icons.visibility_outlined
+                  : Icons.visibility_off_outlined,
+            ),
+            onPressed: () => setState(() => _isObscure = !_isObscure),
+          )),
     );
   }
 }

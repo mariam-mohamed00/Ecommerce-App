@@ -32,7 +32,7 @@ class DefaultElevatedButton extends StatelessWidget {
         side: const BorderSide(color: Colors.transparent),
         fixedSize: Size(
           width ?? screenSize.width,
-          height ?? 80.h,
+          height ?? 70.h,
         ),
       ),
       onPressed: isDisabled ? null : onPressed,

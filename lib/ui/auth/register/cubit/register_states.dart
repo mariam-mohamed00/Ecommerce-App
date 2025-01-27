@@ -1,8 +1,18 @@
-import 'package:app_e_commerce/domain/entity/register_response_entity.dart';
+import 'package:app_e_commerce/domain/entity/auth_response_entity.dart';
 
 abstract class RegisterState {}
 
 class RegisterInitialState extends RegisterState {}
+
+class EmailOnChanged extends RegisterState {}
+
+class PasswordOnChanged extends RegisterState {}
+
+class NameOnChanged extends RegisterState {}
+
+class PhoneOnChanged extends RegisterState {}
+
+class RePasswordOnChanged extends RegisterState {}
 
 class RegisterLoadingState extends RegisterState {
   String loadingMessage;
@@ -10,7 +20,7 @@ class RegisterLoadingState extends RegisterState {
 }
 
 class RegisterSuccessState extends RegisterState {
-  RegisterResponseEntity registerResponseEntity;
+  AuthResponseEntity registerResponseEntity;
   RegisterSuccessState({required this.registerResponseEntity});
 }
 

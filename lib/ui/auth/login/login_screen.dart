@@ -1,9 +1,16 @@
-import 'package:app_e_commerce/routing/routes.dart';
+import 'package:app_e_commerce/domain/di.dart';
+import 'package:app_e_commerce/ui/routing/routes.dart';
+import 'package:app_e_commerce/ui/auth/login/cubit/login_cubit.dart';
+import 'package:app_e_commerce/ui/auth/login/cubit/login_states.dart';
 import 'package:app_e_commerce/ui/auth/widgets/custom_text_form_field.dart';
 import 'package:app_e_commerce/ui/auth/widgets/default_elevation_button.dart';
 import 'package:app_e_commerce/ui/auth/widgets/password_text_field.dart';
+import 'package:app_e_commerce/ui/utils/dialog_utils.dart';
 import 'package:app_e_commerce/ui/utils/my_theme.dart';
+import 'package:app_e_commerce/ui/utils/validator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -13,143 +20,149 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  var formKey = GlobalKey<FormState>();
-
-  String name = '';
-  String password = '';
-
-  RegExp emailValid = RegExp(
-      r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+  LoginCubit loginCubit = LoginCubit(loginUseCase: injectLoginUseCase());
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: MyTheme.mainColor,
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Center(
-                  child: Image.asset(
-                    'assets/images/route.png',
-                    height: MediaQuery.of(context).size.height * 0.3,
-                    width: MediaQuery.of(context).size.width * 0.8,
+    return BlocProvider<LoginCubit>(
+      create: (context) => loginCubit,
+      child: Scaffold(
+          backgroundColor: MyTheme.mainColor,
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Center(
+                    child: Image.asset(
+                      'assets/images/route.png',
+                      height: 200.h,
+                      width: 350.w,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.02,
-                ),
-                Text(
-                  'Welcome Back To Route',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                Text(
-                  'Please sign in with your email',
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-                Form(
-                    key: formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.05,
-                        ),
-                        Text(
-                          'User Name',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.02,
-                        ),
-                        CustomTextFormField(
-                          hintText: 'enter your name',
-                          textInputType: TextInputType.emailAddress,
-                          validator: (text) {
-                            if (text!.isEmpty || name.length < 3) {
-                              return 'invalid name';
-                            }
-                            return null;
-                          },
-                          onChanged: (text) {
-                            setState(() {
-                              if (text != null) name = text;
-                            });
-                            return null;
-                          },
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.03,
-                        ),
-                        Text(
-                          'Password',
-                          style: Theme.of(context).textTheme.titleMedium,
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.02,
-                        ),
-                        PasswordTextFormField(
-                          hintText: 'enter your password',
-                          validator: (text) {
-                            if (text!.length < 8) {
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Text(
+                    'Welcome Back To Route',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  Text(
+                    'Please sign in with your email',
+                    style: Theme.of(context).textTheme.titleSmall,
+                  ),
+                  Form(
+                      key: loginCubit.formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          SizedBox(
+                            height: 50.h,
+                          ),
+                          Text(
+                            'E-mail address',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          SizedBox(
+                            height: 20.h,
+                          ),
+                          CustomTextFormField(
+                              onChanged: loginCubit.onEmailChange,
+                              textInputType: TextInputType.emailAddress,
+                              validator: (email) {
+                                if (Validator.checkEmail(email)) {
+                                  return null;
+                                } else {
+                                  return 'invalid email';
+                                }
+                              },
+                              hintText: 'enter your email address'),
+                          SizedBox(
+                            height: 30.h,
+                          ),
+                          Text(
+                            'Password',
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          SizedBox(
+                            height: 20.h,
+                          ),
+                          PasswordTextFormField(
+                            hintText: 'enter your password',
+                            validator: (password) {
+                              if (Validator.checkPassword(password)) {
+                                return null;
+                              }
                               return 'invalid password';
-                            }
-                            return null;
-                          },
-                          onChanged: (text) {
-                            setState(() {
-                              if (text != null) password = text;
-                            });
-                            return null;
-                          },
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.01,
-                        ),
-                        Text('Forgot Password',
-                            textAlign: TextAlign.end,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium!
-                                .copyWith(fontWeight: FontWeight.w400)),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.07,
-                        ),
-                        (name.length >= 3 && password.length >= 8)
-                            ? DefaultElevatedButton(
+                            },
+                            onChanged: loginCubit.onPasswordChange,
+                          ),
+                          SizedBox(
+                            height: 180.h,
+                          ),
+                          BlocConsumer<LoginCubit, LoginStates>(
+                            buildWhen: (previous, current) =>
+                                current is EmailOnChanged ||
+                                current is PasswordOnChanged,
+                            builder: (context, state) {
+                              return DefaultElevatedButton(
                                 labelColor: MyTheme.textColor,
-                                isDisabled: false,
+                                isDisabled: loginCubit.isLoginButtonDisabled(),
                                 backgroundColor: MyTheme.whiteColor,
                                 label: 'Login',
                                 onPressed: () {
-                                  setState(() {});
-                                  Navigator.of(context)
-                                      .pushReplacementNamed(Routes.home);
+                                  loginCubit.login();
                                 },
-                              )
-                            : DefaultElevatedButton(
-                                isDisabled: true,
-                                label: 'Login',
-                                onPressed: () {},
-                              ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.04),
-                        TextButton(
-                            onPressed: () {
-                              Navigator.of(context)
-                                  .pushNamed(Routes.registerScreen);
+                              );
                             },
-                            child: Text(
-                              'Don\'t have an account? Create Account',
-                              style: Theme.of(context).textTheme.titleMedium,
-                            )),
-                      ],
-                    ))
-              ],
+                            listener: (context, state) {
+                              if (state is LoginLoadingState) {
+                                DialogUtils.showLoading(context,
+                                    state.loadingMessage, MyTheme.whiteColor);
+                              } else if (state is LoginSuccessState) {
+                                DialogUtils.hideLoading(context);
+                                DialogUtils.showMessage(
+                                    context,
+                                    state.loginResponseEntity.user!.name ??
+                                        "Login Successfully",
+                                    titleMessage: 'Success',
+                                    backgroundColor: MyTheme.mainColor,
+                                    textColor: MyTheme.whiteColor,
+                                    posActionName: 'OK',
+                                    actionColor: MyTheme.whiteColor,
+                                    posAction: () {
+                                  Navigator.pushReplacementNamed(
+                                      context, Routes.home);
+                                });
+                              } else if (state is LoginFailedState) {
+                                DialogUtils.hideLoading(context);
+                                DialogUtils.showMessage(
+                                    context, state.errorMessage,
+                                    titleMessage: 'Error',
+                                    backgroundColor: MyTheme.mainColor,
+                                    textColor: MyTheme.whiteColor,
+                                    negActionName: 'OK',
+                                    actionColor: MyTheme.whiteColor);
+                              }
+                            },
+                          ),
+                          SizedBox(height: 40.h),
+                          TextButton(
+                              onPressed: () {
+                                Navigator.of(context)
+                                    .pushNamed(Routes.registerScreen);
+                              },
+                              child: Text(
+                                'Don\'t have an account? Create Account',
+                                style: Theme.of(context).textTheme.titleMedium,
+                              )),
+                        ],
+                      ))
+                ],
+              ),
             ),
-          ),
-        ));
+          )),
+    );
   }
 }

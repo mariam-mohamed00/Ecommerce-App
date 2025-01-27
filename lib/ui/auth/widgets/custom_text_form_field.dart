@@ -14,7 +14,7 @@ class CustomTextFormField extends StatefulWidget {
 
   String hintText;
   TextInputType textInputType;
-  String? Function(String?)? onChanged;
+  void Function(String?)? onChanged;
   String? Function(String?)? validator;
 
   @override

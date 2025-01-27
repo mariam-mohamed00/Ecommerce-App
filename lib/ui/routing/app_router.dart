@@ -1,4 +1,4 @@
-import 'package:app_e_commerce/routing/routes.dart';
+import 'package:app_e_commerce/ui/routing/routes.dart';
 import 'package:app_e_commerce/ui/auth/login/login_screen.dart';
 import 'package:app_e_commerce/ui/auth/register/register_screen.dart';
 import 'package:app_e_commerce/ui/home/home_screen.dart';
