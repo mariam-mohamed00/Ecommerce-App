@@ -1,7 +1,7 @@
 import 'package:app_e_commerce/core/routing/routes.dart';
 import 'package:app_e_commerce/features/auth/presentation/screens/login_screen.dart';
 import 'package:app_e_commerce/features/auth/presentation/screens/register_screen.dart';
-import 'package:app_e_commerce/features/home/home_screen.dart';
+import 'package:app_e_commerce/features/home/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
