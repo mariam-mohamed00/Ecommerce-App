@@ -9,7 +9,7 @@ class AppRouter {
     switch (settings.name) {
       case Routes.home:
         return MaterialPageRoute(
-            builder: (context) => const HomeScreen(), settings: settings);
+            builder: (context) => HomeScreen(), settings: settings);
       case Routes.loginScreen:
         return MaterialPageRoute(
             builder: (context) => const LoginScreen(), settings: settings);
