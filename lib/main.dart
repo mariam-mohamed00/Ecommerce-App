@@ -1,13 +1,13 @@
-import 'package:app_e_commerce/ui/routing/app_router.dart';
-import 'package:app_e_commerce/ui/routing/routes.dart';
-import 'package:app_e_commerce/ui/utils/my_bloc_observer.dart';
-import 'package:app_e_commerce/ui/utils/my_theme.dart';
+import 'package:app_e_commerce/core/routing/app_router.dart';
+import 'package:app_e_commerce/core/routing/routes.dart';
+import 'package:app_e_commerce/core/cubit/my_bloc_observer.dart';
+import 'package:app_e_commerce/core/theme/my_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
-    Bloc.observer = MyBlocObserver();
+  Bloc.observer = MyBlocObserver();
 
   runApp(const MyApp());
 }
