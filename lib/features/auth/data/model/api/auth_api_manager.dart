@@ -9,12 +9,12 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 
-class ApiManager {
-  ApiManager._();
-  static ApiManager? _instance;
+class AuthApiManager {
+  AuthApiManager._();
+  static AuthApiManager? _instance;
 
-  static ApiManager getInstance() {
-    _instance ??= ApiManager._();
+  static AuthApiManager getInstance() {
+    _instance ??= AuthApiManager._();
     return _instance!;
   }
 

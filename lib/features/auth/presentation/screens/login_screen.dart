@@ -38,6 +38,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Center(
                       child: Image.asset(
                         'assets/images/route.png',
+                                                color: MyTheme.whiteColor,
                         height: 200.h,
                         width: 350.w,
                       ),
@@ -68,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             SizedBox(
                               height: 20.h,
                             ),
-                            CustomTextFormField(
+                            DefaultTextFormField(
                                 onChanged: loginCubit.onEmailChange,
                                 textInputType: TextInputType.emailAddress,
                                 validator: (email) {

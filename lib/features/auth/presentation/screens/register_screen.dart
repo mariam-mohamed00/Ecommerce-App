@@ -36,6 +36,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               children: [
                 Image.asset(
                   'assets/images/route.png',
+                                          color: MyTheme.whiteColor,
+
                   height: 200.h,
                   width: 350.w,
                 ),
@@ -51,7 +53,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         SizedBox(
                           height: 20.h,
                         ),
-                        CustomTextFormField(
+                        DefaultTextFormField(
                           hintText: 'enter your full name',
                           onChanged: registerCubit.onNameChange,
                           validator: (text) {
@@ -71,7 +73,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         SizedBox(
                           height: 20.h,
                         ),
-                        CustomTextFormField(
+                        DefaultTextFormField(
                           hintText: 'enter your mobile no',
                           onChanged: registerCubit.onPhoneChange,
                           textInputType: TextInputType.phone,
@@ -92,7 +94,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         SizedBox(
                           height: 20.h,
                         ),
-                        CustomTextFormField(
+                        DefaultTextFormField(
                             onChanged: registerCubit.onEmailChange,
                             textInputType: TextInputType.emailAddress,
                             validator: (text) {
