@@ -7,7 +7,6 @@ import 'package:app_e_commerce/features/home/presentation/cubit/home_screen_stat
 import 'package:app_e_commerce/features/home/presentation/screens/favorite_tab.dart';
 import 'package:app_e_commerce/features/home/presentation/screens/home_tab.dart';
 import 'package:app_e_commerce/features/home/presentation/screens/product_tab.dart';
-import 'package:app_e_commerce/features/home/presentation/screens/profile_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,7 +27,6 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
     const ProductTab(),
     const HomeTab(),
     const FavoriteTab(),
-    const ProfileTab()
   ];
 
   List<String> sliderImage = [

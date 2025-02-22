@@ -46,7 +46,6 @@ Widget defaultBottomNavigationBar(
                 ),
               ),
               label: 'Home'),
-          
           BottomNavigationBarItem(
               icon: CircleAvatar(
                 foregroundColor:
@@ -61,20 +60,6 @@ Widget defaultBottomNavigationBar(
                 ),
               ),
               label: 'Favorite'),
-          BottomNavigationBarItem(
-              icon: CircleAvatar(
-                foregroundColor:
-                    selectedIndex == 3 ? MyTheme.mainColor : MyTheme.whiteColor,
-                backgroundColor: selectedIndex == 3
-                    ? MyTheme.whiteColor
-                    : Colors.transparent,
-                radius: 20.r,
-                child: ImageIcon(
-                  const AssetImage('assets/icons/profile.png'),
-                  size: 40.sp,
-                ),
-              ),
-              label: 'Profile'),
         ]),
   );
 }

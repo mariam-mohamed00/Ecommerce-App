@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:app_e_commerce/core/constants/api_constants.dart';
+import 'package:app_e_commerce/core/utils/shared_preference.dart';
 import 'package:app_e_commerce/features/auth/data/model/request/login_request.dart';
 import 'package:app_e_commerce/features/auth/data/model/request/register_request.dart';
 import 'package:app_e_commerce/features/auth/data/model/response/auth_response_dto.dart';
@@ -37,6 +38,7 @@ class AuthApiManager {
       var registerResponse = AuthResponseDto.fromJson(json);
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return Right(registerResponse);
+
       } else {
         return Left(ServerError(errorMessage: registerResponse.message!));
       }
@@ -59,6 +61,9 @@ class AuthApiManager {
       var json = jsonDecode(response.body);
       var loginResponse = AuthResponseDto.fromJson(json);
       if (response.statusCode >= 200 && response.statusCode < 300) {
+        SharedPreferenceUtils.saveData(
+            key: 'Token', value: loginResponse.token);
+
         return Right(loginResponse);
       } else {
         return Left(ServerError(errorMessage: loginResponse.message!));

@@ -1,4 +1,7 @@
 import 'package:app_e_commerce/core/di/di.dart';
+import 'package:app_e_commerce/core/routing/routes.dart';
+import 'package:app_e_commerce/core/theme/my_theme.dart';
+import 'package:app_e_commerce/core/utils/shared_preference.dart';
 import 'package:app_e_commerce/features/home/presentation/cubit/home_screen_cubit.dart';
 import 'package:app_e_commerce/features/home/presentation/cubit/home_screen_states.dart';
 import 'package:app_e_commerce/features/home/presentation/widgets/default_bottom_navigation_bar.dart';
@@ -8,8 +11,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
-  HomeScreenCubit homeScreenCubit =
-      HomeScreenCubit(getCategoriesUseCase: injectGetCategoryUseCase(), getBrandsUseCase: injectGetBrandsUseCase(), getProductsUseCase: injectGetProductsUseCase());
+  HomeScreenCubit homeScreenCubit = HomeScreenCubit(
+      getCategoriesUseCase: injectGetCategoryUseCase(),
+      getBrandsUseCase: injectGetBrandsUseCase(),
+      getProductsUseCase: injectGetProductsUseCase());
 
   HomeScreen({super.key});
 
@@ -37,8 +42,24 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(
                         height: 10.h,
                       ),
-                      Image.asset(
-                        'assets/images/route.png',
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Image.asset(
+                            'assets/images/route.png',
+                          ),
+                          IconButton(
+                              onPressed: () {
+                                SharedPreferenceUtils.removeData(key: 'Token');
+                                Navigator.of(context)
+                                    .pushReplacementNamed(Routes.loginScreen);
+                              },
+                              icon: Icon(
+                                Icons.logout,
+                                size: 28.sp,
+                                color: MyTheme.mainColor,
+                              )),
+                        ],
                       ),
                       SizedBox(
                         height: 18.h,
