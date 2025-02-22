@@ -29,7 +29,7 @@ class SearchWithShoppingCar extends StatelessWidget {
           child: ImageIcon(
             color: MyTheme.mainColor,
             const AssetImage(
-              'assets/images/shopping_icon.png',
+              'assets/icons/shopping.png',
             ),
             size: 28.sp,
           ),

@@ -9,7 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 // ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
   HomeScreenCubit homeScreenCubit =
-      HomeScreenCubit(getCategoriesUseCase: injectGetCategoryUseCase(), getBrandsUseCase: injectGetBrandsUseCase());
+      HomeScreenCubit(getCategoriesUseCase: injectGetCategoryUseCase(), getBrandsUseCase: injectGetBrandsUseCase(), getProductsUseCase: injectGetProductsUseCase());
 
   HomeScreen({super.key});
 

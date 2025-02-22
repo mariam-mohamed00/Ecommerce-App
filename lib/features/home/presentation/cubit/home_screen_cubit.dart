@@ -1,6 +1,8 @@
 import 'package:app_e_commerce/features/home/domain/entity/category_or_brand_response_entity.dart';
+import 'package:app_e_commerce/features/home/domain/entity/product_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_brands_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_categories_use_case.dart';
+import 'package:app_e_commerce/features/home/domain/use_case/get_products_use_case.dart';
 import 'package:app_e_commerce/features/home/presentation/cubit/home_screen_states.dart';
 import 'package:app_e_commerce/features/home/presentation/screens/favorite_tab.dart';
 import 'package:app_e_commerce/features/home/presentation/screens/home_tab.dart';
@@ -12,14 +14,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class HomeScreenCubit extends Cubit<HomeScreenStates> {
   GetCategoriesUseCase getCategoriesUseCase;
   GetBrandsUseCase getBrandsUseCase;
+  GetProductsUseCase getProductsUseCase;
   HomeScreenCubit(
-      {required this.getCategoriesUseCase, required this.getBrandsUseCase})
+      {required this.getCategoriesUseCase,
+      required this.getBrandsUseCase,
+      required this.getProductsUseCase})
       : super(HomeScreenInitialState());
 
   int selectedIndex = 0;
+  int numOfCartItems = 0;
+
   List<Widget> tabs = [
-    const HomeTab(),
     const ProductTab(),
+    const HomeTab(),
     const FavoriteTab(),
     const ProfileTab()
   ];
@@ -32,6 +39,7 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
 
   List<CategoryOrBrandEntity> categoriesList = [];
   List<CategoryOrBrandEntity> brandsList = [];
+  List<ProductEntity> productsList = [];
 
   void changeBottomNavigationBar(int newSelectedIndex) {
     HomeScreenInitialState();
@@ -58,6 +66,17 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
     }, (r) {
       brandsList = r.dataList ?? [];
       emit(HomeTabSuccessState(categoryOrBrandResponseEntity: r));
+    });
+  }
+
+  void getProducts() async {
+    emit(ProductTabLoadingState(loadingMessage: 'Loading...'));
+    var either = await getProductsUseCase.invoke();
+    either.fold((l) {
+      emit(ProductTabErrorState(error: l));
+    }, (r) {
+      productsList = r.dataList ?? [];
+      emit(ProductTabSuccessState(productResponseEntity: r));
     });
   }
 }

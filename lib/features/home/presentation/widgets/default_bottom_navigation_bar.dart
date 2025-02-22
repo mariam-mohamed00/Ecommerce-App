@@ -27,11 +27,11 @@ Widget defaultBottomNavigationBar(
                     : Colors.transparent,
                 radius: 20.r,
                 child: ImageIcon(
-                  const AssetImage('assets/images/home_icon.png'),
+                  const AssetImage('assets/icons/product.png'),
                   size: 40.sp,
                 ),
               ),
-              label: 'Home'),
+              label: 'Product'),
           BottomNavigationBarItem(
               icon: CircleAvatar(
                 foregroundColor:
@@ -41,11 +41,12 @@ Widget defaultBottomNavigationBar(
                     : Colors.transparent,
                 radius: 20.r,
                 child: ImageIcon(
-                  const AssetImage('assets/images/product_icon.png'),
+                  const AssetImage('assets/icons/home.png'),
                   size: 40.sp,
                 ),
               ),
-              label: 'Product'),
+              label: 'Home'),
+          
           BottomNavigationBarItem(
               icon: CircleAvatar(
                 foregroundColor:
@@ -55,7 +56,7 @@ Widget defaultBottomNavigationBar(
                     : Colors.transparent,
                 radius: 20.r,
                 child: ImageIcon(
-                  const AssetImage('assets/images/favorite_icon.png'),
+                  const AssetImage('assets/icons/favorite.png'),
                   size: 40.sp,
                 ),
               ),
@@ -69,7 +70,7 @@ Widget defaultBottomNavigationBar(
                     : Colors.transparent,
                 radius: 20.r,
                 child: ImageIcon(
-                  const AssetImage('assets/images/profile_icon.png'),
+                  const AssetImage('assets/icons/profile.png'),
                   size: 40.sp,
                 ),
               ),

@@ -1,7 +1,9 @@
 import 'package:app_e_commerce/core/routing/routes.dart';
 import 'package:app_e_commerce/features/auth/presentation/screens/login_screen.dart';
 import 'package:app_e_commerce/features/auth/presentation/screens/register_screen.dart';
+import 'package:app_e_commerce/features/home/presentation/screens/cart_screen.dart';
 import 'package:app_e_commerce/features/home/presentation/screens/home_screen.dart';
+import 'package:app_e_commerce/features/home/presentation/screens/product_details_screen.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {
@@ -16,6 +18,13 @@ class AppRouter {
       case Routes.registerScreen:
         return MaterialPageRoute(
             builder: (context) => const RegisterScreen(), settings: settings);
+      case Routes.cartScreen:
+        return MaterialPageRoute(
+            builder: (context) => const CartScreen(), settings: settings);
+      case Routes.productDetailsScreen:
+        return MaterialPageRoute(
+            builder: (context) => const ProductDetailsScreen(),settings: settings);
+
       default:
         return MaterialPageRoute(
           builder: (context) => const Scaffold(),
