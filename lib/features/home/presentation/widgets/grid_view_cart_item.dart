@@ -1,19 +1,16 @@
 import 'package:app_e_commerce/core/theme/my_theme.dart';
 import 'package:app_e_commerce/features/home/domain/entity/product_response_entity.dart';
+import 'package:app_e_commerce/features/home/presentation/cubit/home_screen_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+
 // ignore: must_be_immutable
-class GridViewCartItem extends StatefulWidget {
-  ProductEntity productEntity;
-  GridViewCartItem({super.key, required this.productEntity});
-
-  @override
-  State<GridViewCartItem> createState() => _GridViewCartItemState();
-}
-
-class _GridViewCartItemState extends State<GridViewCartItem> {
+class GridViewCartItem extends StatelessWidget {
   bool isWishListed = false;
+ ProductEntity productEntity;
+  GridViewCartItem({super.key, required this.productEntity});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +29,7 @@ class _GridViewCartItemState extends State<GridViewCartItem> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(15.r),
                 child: Image.network(
-                  widget.productEntity.imageCover ?? '',
+                  productEntity.imageCover ?? '',
                   width: 180.w,
                   height: 160.h,
                   fit: BoxFit.fill,
@@ -46,8 +43,8 @@ class _GridViewCartItemState extends State<GridViewCartItem> {
                     radius: 15,
                     child: IconButton(
                         onPressed: () {
-                          isWishListed = !isWishListed;
-                          setState(() {});
+                          // isWishListed = !isWishListed;
+                          // setState(() {});
                         },
                         color: MyTheme.mainColor,
                         padding: EdgeInsets.zero,
@@ -65,7 +62,7 @@ class _GridViewCartItemState extends State<GridViewCartItem> {
           ),
           Padding(
             padding: EdgeInsets.only(left: 8.w),
-            child: Text(widget.productEntity.title ?? '',
+            child: Text(productEntity.title ?? '',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.titleSmall!.copyWith(
@@ -80,7 +77,7 @@ class _GridViewCartItemState extends State<GridViewCartItem> {
               padding: EdgeInsets.only(left: 8.w),
               child: Row(
                 children: [
-                  Text('EGP ${widget.productEntity.price}',
+                  Text('EGP ${productEntity.price}',
                       maxLines: 1,
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           fontSize: 14.sp,
@@ -96,7 +93,7 @@ class _GridViewCartItemState extends State<GridViewCartItem> {
               padding: EdgeInsets.only(left: 8.w, right: 8.w),
               child: Row(
                 children: [
-                  Text('Review (${widget.productEntity.ratingsAverage})',
+                  Text('Review (${productEntity.ratingsAverage})',
                       maxLines: 1,
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           fontSize: 14.sp,
@@ -108,7 +105,9 @@ class _GridViewCartItemState extends State<GridViewCartItem> {
                   Image.asset('assets/icons/star.png'),
                   const Spacer(flex: 1),
                   InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        BlocProvider.of<HomeScreenCubit>(context).addToCart(productEntity.id ?? '');
+                      },
                       splashColor: Colors.transparent,
                       child: Icon(
                         Icons.add_circle,

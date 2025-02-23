@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:app_e_commerce/core/constants/api_constants.dart';
 import 'package:app_e_commerce/core/errors/failures.dart';
+import 'package:app_e_commerce/core/utils/shared_preference.dart';
+import 'package:app_e_commerce/features/home/data/model/response/add_to_cart_response_dto.dart';
 import 'package:app_e_commerce/features/home/data/model/response/category_or_brand_response_dto.dart';
 import 'package:app_e_commerce/features/home/data/model/response/product_response_dto.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -38,10 +40,8 @@ class HomeApiManager {
     }
   }
 
-
   Future<Either<Failures, CategoryOrBrandResponseDto>> getBrands() async {
-    Uri url =
-        Uri.https(ApiConstants.baseUrl, ApiConstants.getBrandsEndPoint);
+    Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.getBrandsEndPoint);
 
     final connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult.contains(ConnectivityResult.mobile) ||
@@ -60,9 +60,8 @@ class HomeApiManager {
     }
   }
 
-    Future<Either<Failures, ProductResponseDto>> getProducts() async {
-    Uri url =
-        Uri.https(ApiConstants.baseUrl, ApiConstants.getProductsEndPoint);
+  Future<Either<Failures, ProductResponseDto>> getProducts() async {
+    Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.getProductsEndPoint);
 
     final connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult.contains(ConnectivityResult.mobile) ||
@@ -74,6 +73,31 @@ class HomeApiManager {
         return Right(productResponse);
       } else {
         return Left(ServerError(errorMessage: productResponse.message!));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'please check internet connection'));
+    }
+  }
+
+  Future<Either<Failures, AddToCartResponseDto>> addToCart(
+      String productId) async {
+    Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.addToCartEndPoint);
+
+    final connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult.contains(ConnectivityResult.mobile) ||
+        connectivityResult.contains(ConnectivityResult.wifi)) {
+      var token = SharedPreferenceUtils.getData(key: 'Token');
+      var response = await http.post(url,
+          body: {'productId': productId}, headers: {'token': token.toString()});
+      var json = jsonDecode(response.body);
+      var addToCartResponse = AddToCartResponseDto.fromJson(json);
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(addToCartResponse);
+      } else if (response.statusCode == 401) {
+        return Left(ServerError(errorMessage: addToCartResponse.message!));
+      } else {
+        return Left(ServerError(errorMessage: addToCartResponse.message!));
       }
     } else {
       return Left(

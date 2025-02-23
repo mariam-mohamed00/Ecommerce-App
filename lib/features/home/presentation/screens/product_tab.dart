@@ -32,22 +32,25 @@ class ProductTab extends StatelessWidget {
                 SizedBox(
                   width: 20.w,
                 ),
-                Badge(
-                    label: Text(BlocProvider.of<HomeScreenCubit>(context)
-                        .numOfCartItems
-                        .toString()),
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.of(context).pushNamed(Routes.cartScreen);
-                      },
-                      child: ImageIcon(
-                        color: MyTheme.mainColor,
-                        const AssetImage(
-                          'assets/icons/shopping.png',
+                Padding(
+                  padding: EdgeInsets.only(right: 6.w),
+                  child: Badge(
+                      label: Text(BlocProvider.of<HomeScreenCubit>(context)
+                          .numOfCartItems
+                          .toString()),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(Routes.cartScreen);
+                        },
+                        child: ImageIcon(
+                          color: MyTheme.mainColor,
+                          const AssetImage(
+                            'assets/icons/shopping.png',
+                          ),
+                          size: 28.sp,
                         ),
-                        size: 28.sp,
-                      ),
-                    )),
+                      )),
+                ),
               ],
             ),
             SizedBox(

@@ -14,7 +14,10 @@ class HomeScreen extends StatelessWidget {
   HomeScreenCubit homeScreenCubit = HomeScreenCubit(
       getCategoriesUseCase: injectGetCategoryUseCase(),
       getBrandsUseCase: injectGetBrandsUseCase(),
-      getProductsUseCase: injectGetProductsUseCase());
+      getProductsUseCase: injectGetProductsUseCase(),
+      addToCartUseCase: injectAddToCartUseCase(),
+      
+      );
 
   HomeScreen({super.key});
 

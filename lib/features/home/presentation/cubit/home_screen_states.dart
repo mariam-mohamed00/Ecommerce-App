@@ -1,4 +1,5 @@
 import 'package:app_e_commerce/core/errors/failures.dart';
+import 'package:app_e_commerce/features/home/domain/entity/add_to_cart_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/entity/category_or_brand_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/entity/product_response_entity.dart';
 
@@ -36,4 +37,20 @@ class ProductTabErrorState extends HomeScreenStates {
 class  ProductTabSuccessState extends HomeScreenStates {
   ProductResponseEntity productResponseEntity;
    ProductTabSuccessState({required this.productResponseEntity});
+}
+
+
+class AddToCartLoadingState extends HomeScreenStates {
+  String? loadingMessage;
+  AddToCartLoadingState({required this.loadingMessage});
+}
+
+class AddToCartErrorState extends HomeScreenStates {
+  Failures error;
+   AddToCartErrorState({required this.error});
+}
+
+class AddToCartSuccessState extends HomeScreenStates {
+  AddToCartResponseEntity addToCartResponseEntity;
+   AddToCartSuccessState({required this.addToCartResponseEntity});
 }

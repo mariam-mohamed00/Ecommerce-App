@@ -1,5 +1,6 @@
 import 'package:app_e_commerce/features/home/domain/entity/category_or_brand_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/entity/product_response_entity.dart';
+import 'package:app_e_commerce/features/home/domain/use_case/add_to_cart_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_brands_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_categories_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_products_use_case.dart';
@@ -14,10 +15,12 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
   GetCategoriesUseCase getCategoriesUseCase;
   GetBrandsUseCase getBrandsUseCase;
   GetProductsUseCase getProductsUseCase;
+  AddToCartUseCase addToCartUseCase;
   HomeScreenCubit(
       {required this.getCategoriesUseCase,
       required this.getBrandsUseCase,
-      required this.getProductsUseCase})
+      required this.getProductsUseCase,
+      required this.addToCartUseCase})
       : super(HomeScreenInitialState());
 
   int selectedIndex = 0;
@@ -75,6 +78,18 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
     }, (r) {
       productsList = r.dataList ?? [];
       emit(ProductTabSuccessState(productResponseEntity: r));
+    });
+  }
+
+  void addToCart(String productId) async {
+    emit(AddToCartLoadingState(loadingMessage: 'Loading...'));
+    var either = await addToCartUseCase.invoke(productId);
+    either.fold((l) {
+      emit(AddToCartErrorState(error: l));
+    }, (r) {
+      numOfCartItems = r.numOfCartItems?.toInt() ?? 0 ; 
+      print('numOfCartItems: $numOfCartItems');
+      emit(AddToCartSuccessState(addToCartResponseEntity: r));
     });
   }
 }
