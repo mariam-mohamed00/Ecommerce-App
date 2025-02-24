@@ -12,6 +12,7 @@ import 'package:app_e_commerce/features/home/data/repository/home_repository_imp
 import 'package:app_e_commerce/features/home/domain/repository/home_repository_contract.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/add_to_cart_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_brands_use_case.dart';
+import 'package:app_e_commerce/features/home/domain/use_case/get_cart_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_categories_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_products_use_case.dart';
 
@@ -51,6 +52,12 @@ AddToCartUseCase injectAddToCartUseCase() {
   return AddToCartUseCase(
       homeRepositoryContract: injectHomeRepositoryContract());
 }
+
+GetCartUseCase injectGetCartUseCase() {
+  return GetCartUseCase(
+      homeRepositoryContract: injectHomeRepositoryContract());
+}
+
 
 
 HomeRepositoryContract injectHomeRepositoryContract() {

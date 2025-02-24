@@ -1,7 +1,11 @@
+// ignore_for_file: avoid_print
+
 import 'package:app_e_commerce/features/home/domain/entity/category_or_brand_response_entity.dart';
+import 'package:app_e_commerce/features/home/domain/entity/get_cart_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/entity/product_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/add_to_cart_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_brands_use_case.dart';
+import 'package:app_e_commerce/features/home/domain/use_case/get_cart_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_categories_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_products_use_case.dart';
 import 'package:app_e_commerce/features/home/presentation/cubit/home_screen_states.dart';
@@ -16,11 +20,13 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
   GetBrandsUseCase getBrandsUseCase;
   GetProductsUseCase getProductsUseCase;
   AddToCartUseCase addToCartUseCase;
+  GetCartUseCase getCartUseCase;
   HomeScreenCubit(
       {required this.getCategoriesUseCase,
       required this.getBrandsUseCase,
       required this.getProductsUseCase,
-      required this.addToCartUseCase})
+      required this.addToCartUseCase,
+      required this.getCartUseCase})
       : super(HomeScreenInitialState());
 
   int selectedIndex = 0;
@@ -41,6 +47,7 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
   List<CategoryOrBrandEntity> categoriesList = [];
   List<CategoryOrBrandEntity> brandsList = [];
   List<ProductEntity> productsList = [];
+  List<GetProductEntity> getProductList = [];
 
   void changeBottomNavigationBar(int newSelectedIndex) {
     HomeScreenInitialState();
@@ -87,9 +94,20 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
     either.fold((l) {
       emit(AddToCartErrorState(error: l));
     }, (r) {
-      numOfCartItems = r.numOfCartItems?.toInt() ?? 0 ; 
+      numOfCartItems = r.numOfCartItems?.toInt() ?? 0;
       print('numOfCartItems: $numOfCartItems');
       emit(AddToCartSuccessState(addToCartResponseEntity: r));
+    });
+  }
+
+  void getCart() async {
+    emit(GetCartLoadingState(loadingMessage: 'Loading...'));
+    var either = await getCartUseCase.invoke();
+    either.fold((l) {
+      emit(GetCartErrorState(error: l));
+    }, (r) {
+      getProductList = r.data?.productsList ?? [];
+      emit(GetCartSuccessState(getCartResponseEntity: r));
     });
   }
 }

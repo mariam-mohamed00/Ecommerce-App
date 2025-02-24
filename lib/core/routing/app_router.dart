@@ -20,10 +20,10 @@ class AppRouter {
             builder: (context) => const RegisterScreen(), settings: settings);
       case Routes.cartScreen:
         return MaterialPageRoute(
-            builder: (context) => const CartScreen(), settings: settings);
+            builder: (context) => CartScreen(), settings: settings);
       case Routes.productDetailsScreen:
         return MaterialPageRoute(
-            builder: (context) => const ProductDetailsScreen(),settings: settings);
+            builder: (context) => ProductDetailsScreen(), settings: settings);
 
       default:
         return MaterialPageRoute(

@@ -5,6 +5,7 @@ import 'package:app_e_commerce/core/errors/failures.dart';
 import 'package:app_e_commerce/core/utils/shared_preference.dart';
 import 'package:app_e_commerce/features/home/data/model/response/add_to_cart_response_dto.dart';
 import 'package:app_e_commerce/features/home/data/model/response/category_or_brand_response_dto.dart';
+import 'package:app_e_commerce/features/home/data/model/response/get_cart_response_dto.dart';
 import 'package:app_e_commerce/features/home/data/model/response/product_response_dto.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
@@ -104,4 +105,33 @@ class HomeApiManager {
           NetworkError(errorMessage: 'please check internet connection'));
     }
   }
+
+
+
+
+
+  Future<Either<Failures, GetCartResponseDto>> getCart() async {
+    Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.addToCartEndPoint);
+
+    final connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult.contains(ConnectivityResult.mobile) ||
+        connectivityResult.contains(ConnectivityResult.wifi)) {
+      var token = SharedPreferenceUtils.getData(key: 'Token');
+      var response = await http.get(url, headers: {'token': token.toString()});
+      var json = jsonDecode(response.body);
+      var getCartResponse = GetCartResponseDto.fromJson(json);
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(getCartResponse);
+      } else if (response.statusCode == 401) {
+        return Left(ServerError(errorMessage: getCartResponse.message!));
+      } else {
+        return Left(ServerError(errorMessage: getCartResponse.message!));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'please check internet connection'));
+    }
+  }
+
+
 }

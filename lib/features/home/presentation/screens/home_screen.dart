@@ -16,8 +16,7 @@ class HomeScreen extends StatelessWidget {
       getBrandsUseCase: injectGetBrandsUseCase(),
       getProductsUseCase: injectGetProductsUseCase(),
       addToCartUseCase: injectAddToCartUseCase(),
-      
-      );
+      getCartUseCase: injectGetCartUseCase());
 
   HomeScreen({super.key});
 

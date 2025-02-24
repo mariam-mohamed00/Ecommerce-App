@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:app_e_commerce/core/routing/app_router.dart';
 import 'package:app_e_commerce/core/routing/routes.dart';
 import 'package:app_e_commerce/core/cubit/my_bloc_observer.dart';
