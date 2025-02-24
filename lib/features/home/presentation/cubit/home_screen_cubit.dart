@@ -4,6 +4,7 @@ import 'package:app_e_commerce/features/home/domain/entity/category_or_brand_res
 import 'package:app_e_commerce/features/home/domain/entity/get_cart_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/entity/product_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/add_to_cart_use_case.dart';
+import 'package:app_e_commerce/features/home/domain/use_case/delet_cart_item_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_brands_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_cart_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_categories_use_case.dart';
@@ -21,12 +22,14 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
   GetProductsUseCase getProductsUseCase;
   AddToCartUseCase addToCartUseCase;
   GetCartUseCase getCartUseCase;
+  DeleteCartItemUseCase deleteCartItemUseCase;
   HomeScreenCubit(
       {required this.getCategoriesUseCase,
       required this.getBrandsUseCase,
       required this.getProductsUseCase,
       required this.addToCartUseCase,
-      required this.getCartUseCase})
+      required this.getCartUseCase,
+      required this.deleteCartItemUseCase})
       : super(HomeScreenInitialState());
 
   int selectedIndex = 0;
@@ -105,6 +108,17 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
     var either = await getCartUseCase.invoke();
     either.fold((l) {
       emit(GetCartErrorState(error: l));
+    }, (r) {
+      getProductList = r.data?.productsList ?? [];
+      emit(GetCartSuccessState(getCartResponseEntity: r));
+    });
+  }
+
+    void deleteCartItem(String productId) async {
+    emit(DeleteCartItemLoadingState(loadingMessage: 'Loading...'));
+    var either = await deleteCartItemUseCase.invoke(productId);
+    either.fold((l) {
+      emit(DeleteCartItemErrorState(error: l));
     }, (r) {
       getProductList = r.data?.productsList ?? [];
       emit(GetCartSuccessState(getCartResponseEntity: r));

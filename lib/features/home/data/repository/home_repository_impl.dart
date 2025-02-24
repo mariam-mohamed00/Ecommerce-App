@@ -42,8 +42,8 @@ class HomeRepositoryImpl implements HomeRepositoryContract {
   }
 
   @override
-  Future<Either<Failures, ProductResponseEntity>> getProducts() async{
-   var either = await homeRemoteDataSource.getProducts();
+  Future<Either<Failures, ProductResponseEntity>> getProducts() async {
+    var either = await homeRemoteDataSource.getProducts();
     return either.fold(
       (l) {
         return Left(Failures(errorMessage: l.errorMessage));
@@ -55,8 +55,9 @@ class HomeRepositoryImpl implements HomeRepositoryContract {
   }
 
   @override
-  Future<Either<Failures, AddToCartResponseEntity>> addToCart(String productId) async{
-       var either = await homeRemoteDataSource.addToCart(productId);
+  Future<Either<Failures, AddToCartResponseEntity>> addToCart(
+      String productId) async {
+    var either = await homeRemoteDataSource.addToCart(productId);
 
     return either.fold(
       (l) {
@@ -69,8 +70,23 @@ class HomeRepositoryImpl implements HomeRepositoryContract {
   }
 
   @override
-  Future<Either<Failures, GetCartResponseEntity>> getCart() async{
-      var either = await homeRemoteDataSource.getCart();
+  Future<Either<Failures, GetCartResponseEntity>> getCart() async {
+    var either = await homeRemoteDataSource.getCart();
+
+    return either.fold(
+      (l) {
+        return Left(Failures(errorMessage: l.errorMessage));
+      },
+      (r) {
+        return Right(r.toGetCartResponseEntity());
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failures, GetCartResponseEntity>> deleteCartItem(
+      String productId) async {
+    var either = await homeRemoteDataSource.deleteCartItem(productId);
 
     return either.fold(
       (l) {

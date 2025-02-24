@@ -71,3 +71,19 @@ class GetCartSuccessState extends HomeScreenStates {
   GetCartResponseEntity getCartResponseEntity;
    GetCartSuccessState({required this.getCartResponseEntity});
 }
+
+
+class DeleteCartItemLoadingState extends HomeScreenStates {
+  String? loadingMessage;
+  DeleteCartItemLoadingState({required this.loadingMessage});
+}
+
+class DeleteCartItemErrorState extends HomeScreenStates {
+  Failures error;
+   DeleteCartItemErrorState({required this.error});
+}
+
+class DeleteCartItemSuccessState extends HomeScreenStates {
+  GetCartResponseEntity getCartResponseEntity;
+   DeleteCartItemSuccessState({required this.getCartResponseEntity});
+}

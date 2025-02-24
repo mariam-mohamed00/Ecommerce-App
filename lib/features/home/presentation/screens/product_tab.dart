@@ -36,9 +36,11 @@ class ProductTab extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(right: 6.w),
                   child: Badge(
-                      label: Text(BlocProvider.of<HomeScreenCubit>(context)
+                      label: Text(
+                        BlocProvider.of<HomeScreenCubit>(context)
                           .numOfCartItems
-                          .toString()),
+                          .toString()
+                          ),
                       child: InkWell(
                         onTap: () {
                           Navigator.of(context).pushNamed(Routes.cartScreen);

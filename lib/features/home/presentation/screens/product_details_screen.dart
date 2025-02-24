@@ -1,5 +1,6 @@
 import 'package:app_e_commerce/core/di/di.dart';
 import 'package:app_e_commerce/core/theme/my_theme.dart';
+import 'package:app_e_commerce/features/home/domain/entity/get_cart_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/entity/product_response_entity.dart';
 import 'package:app_e_commerce/features/home/presentation/cubit/home_screen_cubit.dart';
 import 'package:flutter/material.dart';
@@ -16,10 +17,14 @@ class ProductDetailsScreen extends StatelessWidget {
       getBrandsUseCase: injectGetBrandsUseCase(),
       getProductsUseCase: injectGetProductsUseCase(),
       addToCartUseCase: injectAddToCartUseCase(),
-      getCartUseCase: injectGetCartUseCase());
+      getCartUseCase: injectGetCartUseCase(), 
+      deleteCartItemUseCase: injectDeleteCartItemUseCase()
+      );
   @override
   Widget build(BuildContext context) {
     var args = ModalRoute.of(context)!.settings.arguments as ProductEntity;
+    
+
     return Scaffold(
       appBar: AppBar(
         surfaceTintColor: Colors.transparent,

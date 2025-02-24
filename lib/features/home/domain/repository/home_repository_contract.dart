@@ -16,4 +16,6 @@ abstract class HomeRepositoryContract {
 
   Future<Either<Failures, GetCartResponseEntity>> getCart();
 
+  Future<Either<Failures, GetCartResponseEntity>> deleteCartItem(String productId);
+
 }

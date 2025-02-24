@@ -1,6 +1,8 @@
 import 'package:app_e_commerce/core/theme/my_theme.dart';
 import 'package:app_e_commerce/features/home/domain/entity/get_cart_response_entity.dart';
+import 'package:app_e_commerce/features/home/presentation/cubit/home_screen_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: must_be_immutable
@@ -16,8 +18,8 @@ class CartItem extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.r),
-          border:
-              Border.all(width: 1, color: MyTheme.blackColor.withOpacity(0.6)),
+          border: Border.all(
+              width: 1, color: MyTheme.blackColor.withOpacity(0.6)),
         ),
         width: 398.w,
         height: 165.h,
@@ -45,17 +47,26 @@ class CartItem extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          getProductEntity.product?.title ?? '',
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium!
-                              .copyWith(
-                                  color: MyTheme.mainColor,
-                                  fontWeight: FontWeight.bold),
+                        SizedBox(
+                          width: 200.w,
+                          child: Text(
+                            getProductEntity.product?.title ?? '',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium!
+                                .copyWith(
+                                    color: MyTheme.mainColor,
+                                    fontWeight: FontWeight.bold),
+                          ),
                         ),
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            BlocProvider.of<HomeScreenCubit>(context)
+                                .deleteCartItem(
+                                    getProductEntity.product!.id ?? '');
+                          },
                           child: Icon(
                             Icons.delete_outline,
                             color: MyTheme.mainColor,
@@ -105,7 +116,8 @@ class CartItem extends StatelessWidget {
                               ),
                               Text(
                                 getProductEntity.count.toString(),
-                                style: Theme.of(context).textTheme.titleMedium,
+                                style:
+                                    Theme.of(context).textTheme.titleMedium,
                               ),
                               InkWell(
                                 onTap: () {},
