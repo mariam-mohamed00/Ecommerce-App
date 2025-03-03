@@ -97,4 +97,18 @@ class HomeRepositoryImpl implements HomeRepositoryContract {
       },
     );
   }
+  
+  @override
+  Future<Either<Failures, GetCartResponseEntity>> updateCountCartItem(String productId, int count) async{
+    var either = await homeRemoteDataSource.updateCountCartItem(productId, count);
+
+    return either.fold(
+      (l) {
+        return Left(Failures(errorMessage: l.errorMessage));
+      },
+      (r) {
+        return Right(r.toGetCartResponseEntity());
+      },
+    );
+  }
 }

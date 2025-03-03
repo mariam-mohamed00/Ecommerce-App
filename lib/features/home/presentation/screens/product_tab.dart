@@ -1,9 +1,9 @@
 import 'package:app_e_commerce/core/routing/routes.dart';
 import 'package:app_e_commerce/core/theme/my_theme.dart';
-import 'package:app_e_commerce/core/widgets/default_text_form_field.dart';
 import 'package:app_e_commerce/features/home/presentation/cubit/home_screen_cubit.dart';
 import 'package:app_e_commerce/features/home/presentation/cubit/home_screen_states.dart';
 import 'package:app_e_commerce/features/home/presentation/widgets/grid_view_cart_item.dart';
+import 'package:app_e_commerce/features/home/presentation/widgets/search_with_shopping_car.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,49 +13,26 @@ class ProductTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeScreenCubit, HomeScreenStates>(
+    return BlocConsumer<HomeScreenCubit, HomeScreenStates>(
         bloc: BlocProvider.of<HomeScreenCubit>(context)..getProducts(),
+        listener: (context, state) {
+          if (state is AddToCartSuccessState) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: const Center(
+                    child: Text(
+                  'Item added to cart',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )),
+                backgroundColor: MyTheme.mainColor,
+                duration: const Duration(seconds: 2),
+              ),
+            );
+          }
+        },
         builder: (context, state) {
           return Column(children: [
-            Row(
-              children: [
-                Expanded(
-                    child: DefaultTextFormField(
-                  hintText: 'What do you search for?',
-                  prefixIcon: IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.search,
-                        size: 32.sp,
-                        color: MyTheme.mainColor.withOpacity(0.75),
-                      )),
-                )),
-                SizedBox(
-                  width: 20.w,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(right: 6.w),
-                  child: Badge(
-                      label: Text(
-                        BlocProvider.of<HomeScreenCubit>(context)
-                          .numOfCartItems
-                          .toString()
-                          ),
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.of(context).pushNamed(Routes.cartScreen);
-                        },
-                        child: ImageIcon(
-                          color: MyTheme.mainColor,
-                          const AssetImage(
-                            'assets/icons/shopping.png',
-                          ),
-                          size: 28.sp,
-                        ),
-                      )),
-                ),
-              ],
-            ),
+            const SearchWithShoppingCar(),
             SizedBox(
               height: 24.h,
             ),
@@ -64,7 +41,7 @@ class ProductTab extends StatelessWidget {
                     child: CircularProgressIndicator(color: MyTheme.mainColor),
                   )
                 : SizedBox(
-                    height: 650.h,
+                    height: 600,
                     child: GridView.builder(
                       // shrinkWrap: true,
                       // physics: const NeverScrollableScrollPhysics(),
@@ -73,7 +50,7 @@ class ProductTab extends StatelessWidget {
                           .length,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                          childAspectRatio: 2 / 2.4,
+                          mainAxisExtent: 220,
                           crossAxisSpacing: 16.w,
                           mainAxisSpacing: 16.h),
                       itemBuilder: (context, index) {
@@ -83,10 +60,11 @@ class ProductTab extends StatelessWidget {
                           highlightColor: Colors.transparent,
                           onTap: () {
                             Navigator.of(context).pushNamed(
-                                Routes.productDetailsScreen,
-                                arguments:
-                                    BlocProvider.of<HomeScreenCubit>(context)
-                                        .productsList[index]);
+                              Routes.productDetailsScreen,
+                              arguments:
+                                  BlocProvider.of<HomeScreenCubit>(context)
+                                      .productsList[index],
+                            );
                           },
                           child: GridViewCartItem(
                               productEntity:

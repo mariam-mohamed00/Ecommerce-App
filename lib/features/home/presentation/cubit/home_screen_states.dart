@@ -32,14 +32,28 @@ class ProductTabLoadingState extends HomeScreenStates {
 
 class ProductTabErrorState extends HomeScreenStates {
   Failures error;
-   ProductTabErrorState({required this.error});
+  ProductTabErrorState({required this.error});
 }
 
-class  ProductTabSuccessState extends HomeScreenStates {
+class ProductTabSuccessState extends HomeScreenStates {
   ProductResponseEntity productResponseEntity;
-   ProductTabSuccessState({required this.productResponseEntity});
+  ProductTabSuccessState({required this.productResponseEntity});
 }
 
+class SearchProductTabLoadingState extends HomeScreenStates {
+  String? loadingMessage;
+  SearchProductTabLoadingState({required this.loadingMessage});
+}
+
+class SearchProductTabErrorState extends HomeScreenStates {
+  Failures error;
+  SearchProductTabErrorState({required this.error});
+}
+
+class SearchProductTabSuccessState extends HomeScreenStates {
+  ProductResponseEntity productResponseEntity;
+  SearchProductTabSuccessState({required this.productResponseEntity});
+}
 
 class AddToCartLoadingState extends HomeScreenStates {
   String? loadingMessage;
@@ -48,14 +62,13 @@ class AddToCartLoadingState extends HomeScreenStates {
 
 class AddToCartErrorState extends HomeScreenStates {
   Failures error;
-   AddToCartErrorState({required this.error});
+  AddToCartErrorState({required this.error});
 }
 
 class AddToCartSuccessState extends HomeScreenStates {
   AddToCartResponseEntity addToCartResponseEntity;
-   AddToCartSuccessState({required this.addToCartResponseEntity});
+  AddToCartSuccessState({required this.addToCartResponseEntity});
 }
-
 
 class GetCartLoadingState extends HomeScreenStates {
   String? loadingMessage;
@@ -64,14 +77,13 @@ class GetCartLoadingState extends HomeScreenStates {
 
 class GetCartErrorState extends HomeScreenStates {
   Failures error;
-   GetCartErrorState({required this.error});
+  GetCartErrorState({required this.error});
 }
 
 class GetCartSuccessState extends HomeScreenStates {
   GetCartResponseEntity getCartResponseEntity;
-   GetCartSuccessState({required this.getCartResponseEntity});
+  GetCartSuccessState({required this.getCartResponseEntity});
 }
-
 
 class DeleteCartItemLoadingState extends HomeScreenStates {
   String? loadingMessage;
@@ -80,10 +92,25 @@ class DeleteCartItemLoadingState extends HomeScreenStates {
 
 class DeleteCartItemErrorState extends HomeScreenStates {
   Failures error;
-   DeleteCartItemErrorState({required this.error});
+  DeleteCartItemErrorState({required this.error});
 }
 
 class DeleteCartItemSuccessState extends HomeScreenStates {
   GetCartResponseEntity getCartResponseEntity;
-   DeleteCartItemSuccessState({required this.getCartResponseEntity});
+  DeleteCartItemSuccessState({required this.getCartResponseEntity});
+}
+
+class UpdateCountCartItemLoadingState extends HomeScreenStates {
+  String? loadingMessage;
+  UpdateCountCartItemLoadingState({required this.loadingMessage});
+}
+
+class UpdateCountCartItemErrorState extends HomeScreenStates {
+  Failures error;
+  UpdateCountCartItemErrorState({required this.error});
+}
+
+class UpdateCountCartItemSuccessState extends HomeScreenStates {
+  GetCartResponseEntity getCartResponseEntity;
+  UpdateCountCartItemSuccessState({required this.getCartResponseEntity});
 }

@@ -11,6 +11,7 @@ abstract class HomeRemoteDataSource {
   Future<Either<Failures, ProductResponseDto>> getProducts();
   Future<Either<Failures, AddToCartResponseDto>> addToCart(String productId);
   Future<Either<Failures, GetCartResponseDto>> getCart();
-  Future<Either<Failures, GetCartResponseDto>> deleteCartItem(
-      String productId);
+  Future<Either<Failures, GetCartResponseDto>> deleteCartItem(String productId);
+  Future<Either<Failures, GetCartResponseDto>> updateCountCartItem(
+      String productId, int count);
 }

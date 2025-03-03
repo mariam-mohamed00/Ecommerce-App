@@ -81,6 +81,7 @@ class HomeApiManager {
     }
   }
 
+
   Future<Either<Failures, AddToCartResponseDto>> addToCart(
       String productId) async {
     Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.addToCartEndPoint);
@@ -158,4 +159,30 @@ class HomeApiManager {
           NetworkError(errorMessage: 'please check internet connection'));
     }
   }
+
+
+
+  Future<Either<Failures, GetCartResponseDto>> updateCountCartItem(String productId, int count) async {
+    Uri url = Uri.https(ApiConstants.baseUrl, '${ApiConstants.addToCartEndPoint}/$productId');
+
+    final connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult.contains(ConnectivityResult.mobile) ||
+        connectivityResult.contains(ConnectivityResult.wifi)) {
+      var token = SharedPreferenceUtils.getData(key: 'Token');
+      var response = await http.put(url, headers: {'token': token.toString()}, body: {'count' : '$count'});
+      var json = jsonDecode(response.body);
+      var updateCountCartItemResponse = GetCartResponseDto.fromJson(json);
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(updateCountCartItemResponse);
+      } else if (response.statusCode == 401) {
+        return Left(ServerError(errorMessage: updateCountCartItemResponse.message!));
+      } else {
+        return Left(ServerError(errorMessage: updateCountCartItemResponse.message!));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'please check internet connection'));
+    }
+  }
+  
 }

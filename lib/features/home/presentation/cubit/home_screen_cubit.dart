@@ -9,6 +9,7 @@ import 'package:app_e_commerce/features/home/domain/use_case/get_brands_use_case
 import 'package:app_e_commerce/features/home/domain/use_case/get_cart_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_categories_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_products_use_case.dart';
+import 'package:app_e_commerce/features/home/domain/use_case/update_count_cart_item_use_case.dart';
 import 'package:app_e_commerce/features/home/presentation/cubit/home_screen_states.dart';
 import 'package:app_e_commerce/features/home/presentation/screens/favorite_tab.dart';
 import 'package:app_e_commerce/features/home/presentation/screens/home_tab.dart';
@@ -23,21 +24,24 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
   AddToCartUseCase addToCartUseCase;
   GetCartUseCase getCartUseCase;
   DeleteCartItemUseCase deleteCartItemUseCase;
-  HomeScreenCubit(
-      {required this.getCategoriesUseCase,
-      required this.getBrandsUseCase,
-      required this.getProductsUseCase,
-      required this.addToCartUseCase,
-      required this.getCartUseCase,
-      required this.deleteCartItemUseCase})
-      : super(HomeScreenInitialState());
+  UpdateCountCartItemUseCase updateCountCartItemUseCase;
+
+  HomeScreenCubit({
+    required this.getCategoriesUseCase,
+    required this.getBrandsUseCase,
+    required this.getProductsUseCase,
+    required this.addToCartUseCase,
+    required this.getCartUseCase,
+    required this.deleteCartItemUseCase,
+    required this.updateCountCartItemUseCase,
+  }) : super(HomeScreenInitialState());
 
   int selectedIndex = 0;
   int numOfCartItems = 0;
 
   List<Widget> tabs = [
-    const ProductTab(),
     const HomeTab(),
+    const ProductTab(),
     const FavoriteTab(),
   ];
 
@@ -114,11 +118,22 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
     });
   }
 
-    void deleteCartItem(String productId) async {
+  void deleteCartItem(String productId) async {
     emit(DeleteCartItemLoadingState(loadingMessage: 'Loading...'));
     var either = await deleteCartItemUseCase.invoke(productId);
     either.fold((l) {
       emit(DeleteCartItemErrorState(error: l));
+    }, (r) {
+      getProductList = r.data?.productsList ?? [];
+      emit(GetCartSuccessState(getCartResponseEntity: r));
+    });
+  }
+
+  void updateCountCartItem(String productId, int count) async {
+    emit(UpdateCountCartItemLoadingState(loadingMessage: 'Loading...'));
+    var either = await updateCountCartItemUseCase.invoke(productId, count);
+    either.fold((l) {
+      emit(UpdateCountCartItemErrorState(error: l));
     }, (r) {
       getProductList = r.data?.productsList ?? [];
       emit(GetCartSuccessState(getCartResponseEntity: r));

@@ -11,13 +11,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CartScreen extends StatelessWidget {
   CartScreen({super.key});
   HomeScreenCubit homeScreenCubit = HomeScreenCubit(
-      getCategoriesUseCase: injectGetCategoryUseCase(),
-      getBrandsUseCase: injectGetBrandsUseCase(),
-      getProductsUseCase: injectGetProductsUseCase(),
-      addToCartUseCase: injectAddToCartUseCase(),
-      getCartUseCase: injectGetCartUseCase(),
-            deleteCartItemUseCase: injectDeleteCartItemUseCase()
-);
+    getCategoriesUseCase: injectGetCategoryUseCase(),
+    getBrandsUseCase: injectGetBrandsUseCase(),
+    getProductsUseCase: injectGetProductsUseCase(),
+    addToCartUseCase: injectAddToCartUseCase(),
+    getCartUseCase: injectGetCartUseCase(),
+    deleteCartItemUseCase: injectDeleteCartItemUseCase(),
+    updateCountCartItemUseCase: injectUpdateCountCartItemUseCase(),
+  );
   @override
   Widget build(BuildContext context) {
     return BlocProvider<HomeScreenCubit>(
@@ -49,11 +50,6 @@ class CartScreen extends StatelessWidget {
                     },
                     icon: Icon(Icons.search, color: MyTheme.mainColor),
                   ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: Icon(Icons.shopping_cart_outlined,
-                        color: MyTheme.mainColor),
-                  ),
                 ],
               ),
               body: state is GetCartSuccessState
@@ -64,12 +60,14 @@ class CartScreen extends StatelessWidget {
                           child: ListView.builder(
                               itemBuilder: (context, index) {
                                 return CartItem(
-                                    getProductEntity: state.getCartResponseEntity
-                                        .data!.productsList![index]);
+                                    getProductEntity: state
+                                        .getCartResponseEntity
+                                        .data!
+                                        .productsList![index]);
                               },
-                              itemCount: state.getCartResponseEntity.numOfCartItems!.toInt()
-                              // state.getCartResponseEntity.data!.productsList?.length
-                              ),
+                              itemCount: state
+                                  .getCartResponseEntity.numOfCartItems!
+                                  .toInt()),
                         ),
                         Padding(
                           padding: EdgeInsets.only(
@@ -110,8 +108,8 @@ class CartScreen extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(20.r),
                                       color: MyTheme.mainColor),
                                   child: Padding(
-                                    padding:
-                                        EdgeInsets.only(top: 12.h, bottom: 12.h),
+                                    padding: EdgeInsets.only(
+                                        top: 12.h, bottom: 12.h),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
@@ -141,7 +139,8 @@ class CartScreen extends StatelessWidget {
                       ],
                     )
                   : Center(
-                      child: CircularProgressIndicator(color: MyTheme.mainColor),
+                      child:
+                          CircularProgressIndicator(color: MyTheme.mainColor),
                     ));
         },
       ),

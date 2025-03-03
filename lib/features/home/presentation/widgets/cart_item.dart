@@ -18,8 +18,8 @@ class CartItem extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.r),
-          border: Border.all(
-              width: 1, color: MyTheme.blackColor.withOpacity(0.6)),
+          border:
+              Border.all(width: 1, color: MyTheme.blackColor.withOpacity(0.6)),
         ),
         width: 398.w,
         height: 165.h,
@@ -110,17 +110,30 @@ class CartItem extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  int counter = getProductEntity.count!.toInt();
+                                  counter--;
+                                  BlocProvider.of<HomeScreenCubit>(context)
+                                      .updateCountCartItem(
+                                          getProductEntity.product!.id ?? '',
+                                          counter);
+                                },
                                 child: Icon(Icons.remove_circle_outline,
                                     size: 20, color: MyTheme.whiteColor),
                               ),
                               Text(
                                 getProductEntity.count.toString(),
-                                style:
-                                    Theme.of(context).textTheme.titleMedium,
+                                style: Theme.of(context).textTheme.titleMedium,
                               ),
                               InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  int counter = getProductEntity.count!.toInt();
+                                  counter++;
+                                  BlocProvider.of<HomeScreenCubit>(context)
+                                      .updateCountCartItem(
+                                          getProductEntity.product!.id ?? '',
+                                          counter);
+                                },
                                 child: Icon(
                                   Icons.add_circle_outline,
                                   color: MyTheme.whiteColor,

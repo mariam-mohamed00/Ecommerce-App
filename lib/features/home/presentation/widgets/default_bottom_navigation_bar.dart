@@ -10,9 +10,8 @@ Widget defaultBottomNavigationBar(
     borderRadius: BorderRadius.only(
         topLeft: Radius.circular(20.r), topRight: Radius.circular(20.r)),
     child: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
         backgroundColor: MyTheme.mainColor,
-        elevation: 0.0,
+        elevation: 0,
         showUnselectedLabels: false,
         showSelectedLabels: false,
         currentIndex: selectedIndex,
@@ -27,11 +26,11 @@ Widget defaultBottomNavigationBar(
                     : Colors.transparent,
                 radius: 20.r,
                 child: ImageIcon(
-                  const AssetImage('assets/icons/product.png'),
+                  const AssetImage('assets/icons/home.png'),
                   size: 40.sp,
                 ),
               ),
-              label: 'Product'),
+              label: 'Home'),
           BottomNavigationBarItem(
               icon: CircleAvatar(
                 foregroundColor:
@@ -41,11 +40,11 @@ Widget defaultBottomNavigationBar(
                     : Colors.transparent,
                 radius: 20.r,
                 child: ImageIcon(
-                  const AssetImage('assets/icons/home.png'),
+                  const AssetImage('assets/icons/product.png'),
                   size: 40.sp,
                 ),
               ),
-              label: 'Home'),
+              label: 'Product'),
           BottomNavigationBarItem(
               icon: CircleAvatar(
                 foregroundColor:

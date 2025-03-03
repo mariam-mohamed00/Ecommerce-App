@@ -16,6 +16,7 @@ import 'package:app_e_commerce/features/home/domain/use_case/get_brands_use_case
 import 'package:app_e_commerce/features/home/domain/use_case/get_cart_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_categories_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_products_use_case.dart';
+import 'package:app_e_commerce/features/home/domain/use_case/update_count_cart_item_use_case.dart';
 
 RegisterUseCase injectRegisterUseCase() {
   return RegisterUseCase(
@@ -61,6 +62,11 @@ GetCartUseCase injectGetCartUseCase() {
 
 DeleteCartItemUseCase injectDeleteCartItemUseCase() {
   return DeleteCartItemUseCase(
+      homeRepositoryContract: injectHomeRepositoryContract());
+}
+
+UpdateCountCartItemUseCase injectUpdateCountCartItemUseCase() {
+  return UpdateCountCartItemUseCase(
       homeRepositoryContract: injectHomeRepositoryContract());
 }
 

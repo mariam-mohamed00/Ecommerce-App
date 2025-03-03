@@ -18,4 +18,6 @@ abstract class HomeRepositoryContract {
 
   Future<Either<Failures, GetCartResponseEntity>> deleteCartItem(String productId);
 
+  Future<Either<Failures, GetCartResponseEntity>> updateCountCartItem(String productId, int count);
+
 }
