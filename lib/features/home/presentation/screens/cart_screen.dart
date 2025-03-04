@@ -18,6 +18,7 @@ class CartScreen extends StatelessWidget {
     getCartUseCase: injectGetCartUseCase(),
     deleteCartItemUseCase: injectDeleteCartItemUseCase(),
     updateCountCartItemUseCase: injectUpdateCountCartItemUseCase(),
+    addToWishlistUseCase: injectAddToWishlistUseCase()
   );
   @override
   Widget build(BuildContext context) {

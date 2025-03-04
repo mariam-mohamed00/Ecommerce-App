@@ -4,6 +4,7 @@ import 'package:app_e_commerce/features/home/domain/entity/category_or_brand_res
 import 'package:app_e_commerce/features/home/domain/entity/get_cart_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/entity/product_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/add_to_cart_use_case.dart';
+import 'package:app_e_commerce/features/home/domain/use_case/add_to_wishlist_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/delet_cart_item_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_brands_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_cart_use_case.dart';
@@ -25,16 +26,17 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
   GetCartUseCase getCartUseCase;
   DeleteCartItemUseCase deleteCartItemUseCase;
   UpdateCountCartItemUseCase updateCountCartItemUseCase;
-
-  HomeScreenCubit({
-    required this.getCategoriesUseCase,
-    required this.getBrandsUseCase,
-    required this.getProductsUseCase,
-    required this.addToCartUseCase,
-    required this.getCartUseCase,
-    required this.deleteCartItemUseCase,
-    required this.updateCountCartItemUseCase,
-  }) : super(HomeScreenInitialState());
+  AddToWishlistUseCase addToWishlistUseCase;
+  HomeScreenCubit(
+      {required this.getCategoriesUseCase,
+      required this.getBrandsUseCase,
+      required this.getProductsUseCase,
+      required this.addToCartUseCase,
+      required this.getCartUseCase,
+      required this.deleteCartItemUseCase,
+      required this.updateCountCartItemUseCase,
+      required this.addToWishlistUseCase})
+      : super(HomeScreenInitialState());
 
   int selectedIndex = 0;
   int numOfCartItems = 0;
@@ -55,6 +57,7 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
   List<CategoryOrBrandEntity> brandsList = [];
   List<ProductEntity> productsList = [];
   List<GetProductEntity> getProductList = [];
+  List<String> wishList = [];
 
   void changeBottomNavigationBar(int newSelectedIndex) {
     HomeScreenInitialState();
@@ -138,5 +141,24 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
       getProductList = r.data?.productsList ?? [];
       emit(GetCartSuccessState(getCartResponseEntity: r));
     });
+  }
+
+  void addToWishlist(String productId) async {
+    emit(AddToWishlistLoadingState(loadingMessage: 'Loading...'));
+    var either = await addToWishlistUseCase.invoke(productId);
+    either.fold((l) {
+      emit(AddToWishlistErrorState(error: l));
+    }, (r) {
+      if (wishList.contains(productId)) {
+        wishList.remove(productId);
+      } else {
+        wishList.add(productId);
+      }
+      emit(AddToWishlistSuccessState(addToWishlistEntity: r));
+    });
+  }
+
+  bool isWishlisted(String productId) {
+    return wishList.contains(productId);
   }
 }

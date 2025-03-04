@@ -6,4 +6,5 @@ class ApiConstants {
   static const String getBrandsEndPoint = "/api/v1/brands";
   static const String getProductsEndPoint = "/api/v1/products";
   static const String addToCartEndPoint = "/api/v1/cart";
+  static const String addToWishlistEndPoint = "/api/v1/wishlist";
 }

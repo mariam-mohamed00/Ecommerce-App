@@ -4,6 +4,7 @@ import 'package:app_e_commerce/core/constants/api_constants.dart';
 import 'package:app_e_commerce/core/errors/failures.dart';
 import 'package:app_e_commerce/core/utils/shared_preference.dart';
 import 'package:app_e_commerce/features/home/data/model/response/add_to_cart_response_dto.dart';
+import 'package:app_e_commerce/features/home/data/model/response/add_to_wishlist_response_dto.dart';
 import 'package:app_e_commerce/features/home/data/model/response/category_or_brand_response_dto.dart';
 import 'package:app_e_commerce/features/home/data/model/response/get_cart_response_dto.dart';
 import 'package:app_e_commerce/features/home/data/model/response/product_response_dto.dart';
@@ -184,5 +185,34 @@ class HomeApiManager {
           NetworkError(errorMessage: 'please check internet connection'));
     }
   }
+
   
+  
+
+  Future<Either<Failures, AddToWishlistResponseDto>> addToWishlist(
+      String productId) async {
+    Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.addToWishlistEndPoint);
+
+    final connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult.contains(ConnectivityResult.mobile) ||
+        connectivityResult.contains(ConnectivityResult.wifi)) {
+      var token = SharedPreferenceUtils.getData(key: 'Token');
+      var response = await http.post(url,
+          body: {'productId': productId}, headers: {'token': token.toString()});
+      var json = jsonDecode(response.body);
+      var addToWishlistResponse = AddToWishlistResponseDto.fromJson(json);
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return Right(addToWishlistResponse);
+      } else if (response.statusCode == 401) {
+        return Left(ServerError(errorMessage: addToWishlistResponse.message!));
+      } else {
+        return Left(ServerError(errorMessage: addToWishlistResponse.message!));
+      }
+    } else {
+      return Left(
+          NetworkError(errorMessage: 'please check internet connection'));
+    }
+  }
 }
+
+

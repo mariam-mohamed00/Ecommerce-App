@@ -29,6 +29,19 @@ class ProductTab extends StatelessWidget {
               ),
             );
           }
+          if (state is AddToWishlistSuccessState) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: const Center(
+                    child: Text(
+                  'Item added to favorite',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )),
+                backgroundColor: MyTheme.mainColor,
+                duration: const Duration(seconds: 2),
+              ),
+            );
+          }
         },
         builder: (context, state) {
           return Column(children: [
@@ -43,8 +56,6 @@ class ProductTab extends StatelessWidget {
                 : SizedBox(
                     height: 600,
                     child: GridView.builder(
-                      // shrinkWrap: true,
-                      // physics: const NeverScrollableScrollPhysics(),
                       itemCount: BlocProvider.of<HomeScreenCubit>(context)
                           .productsList
                           .length,
@@ -54,22 +65,59 @@ class ProductTab extends StatelessWidget {
                           crossAxisSpacing: 16.w,
                           mainAxisSpacing: 16.h),
                       itemBuilder: (context, index) {
-                        return InkWell(
-                          splashColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () {
-                            Navigator.of(context).pushNamed(
-                              Routes.productDetailsScreen,
-                              arguments:
-                                  BlocProvider.of<HomeScreenCubit>(context)
-                                      .productsList[index],
-                            );
-                          },
-                          child: GridViewCartItem(
-                              productEntity:
-                                  BlocProvider.of<HomeScreenCubit>(context)
-                                      .productsList[index]),
+                        return Stack(
+                          children: [
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () {
+                                Navigator.of(context).pushNamed(
+                                  Routes.productDetailsScreen,
+                                  arguments:
+                                      BlocProvider.of<HomeScreenCubit>(context)
+                                          .productsList[index],
+                                );
+                              },
+                              child: GridViewCartItem(
+                                  productEntity:
+                                      BlocProvider.of<HomeScreenCubit>(context)
+                                          .productsList[index]),
+                            ),
+                            Positioned(
+                                top: 5.h,
+                                right: 2.w,
+                                child: CircleAvatar(
+                                  backgroundColor: MyTheme.whiteColor,
+                                  radius: 15,
+                                  child: IconButton(
+                                      onPressed: () {
+                                        BlocProvider.of<HomeScreenCubit>(
+                                                context)
+                                            .addToWishlist(BlocProvider.of<
+                                                            HomeScreenCubit>(
+                                                        context)
+                                                    .productsList[index]
+                                                    .id ??
+                                                '');
+                                      },
+                                      color: MyTheme.mainColor,
+                                      padding: EdgeInsets.zero,
+                                      icon: BlocProvider.of<HomeScreenCubit>(
+                                                  context)
+                                              .isWishlisted(BlocProvider.of<
+                                                              HomeScreenCubit>(
+                                                          context)
+                                                      .productsList[index]
+                                                      .id ??
+                                                  '')
+                                          ? const Icon(Icons.favorite_rounded,
+                                              color: Colors.red)
+                                          : const Icon(
+                                              Icons.favorite_border_rounded,
+                                            )),
+                                ))
+                          ],
                         );
                       },
                     ),

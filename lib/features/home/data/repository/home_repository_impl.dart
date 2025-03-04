@@ -1,10 +1,12 @@
 import 'package:app_e_commerce/core/errors/failures.dart';
 import 'package:app_e_commerce/features/home/data/data_source/home_remote_data_source.dart';
 import 'package:app_e_commerce/features/home/data/mappers/add_to_cart_response_dto_mappers.dart';
+import 'package:app_e_commerce/features/home/data/mappers/add_to_wishlist_response_dto_mappers.dart';
 import 'package:app_e_commerce/features/home/data/mappers/category_or_brand_response_dto_mappers.dart';
 import 'package:app_e_commerce/features/home/data/mappers/get_cart_response_dto_mappers.dart';
 import 'package:app_e_commerce/features/home/data/mappers/product_response_dto_mappers.dart';
 import 'package:app_e_commerce/features/home/domain/entity/add_to_cart_response_entity.dart';
+import 'package:app_e_commerce/features/home/domain/entity/add_to_wishlist_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/entity/category_or_brand_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/entity/get_cart_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/entity/product_response_entity.dart';
@@ -97,10 +99,12 @@ class HomeRepositoryImpl implements HomeRepositoryContract {
       },
     );
   }
-  
+
   @override
-  Future<Either<Failures, GetCartResponseEntity>> updateCountCartItem(String productId, int count) async{
-    var either = await homeRemoteDataSource.updateCountCartItem(productId, count);
+  Future<Either<Failures, GetCartResponseEntity>> updateCountCartItem(
+      String productId, int count) async {
+    var either =
+        await homeRemoteDataSource.updateCountCartItem(productId, count);
 
     return either.fold(
       (l) {
@@ -111,4 +115,20 @@ class HomeRepositoryImpl implements HomeRepositoryContract {
       },
     );
   }
+
+  @override
+  Future<Either<Failures, AddToWishlistResponseEntity>> addToWishlist(
+      String productId) async {
+    var either = await homeRemoteDataSource.addToWishlist(productId);
+
+    return either.fold(
+      (l) {
+        return Left(Failures(errorMessage: l.errorMessage));
+      },
+      (r) {
+        return Right(r.toAddToWishlistEntity());
+      },
+    );
+  }
+
 }
