@@ -20,9 +20,9 @@ class ProductDetailsScreen extends StatelessWidget {
       getCartUseCase: injectGetCartUseCase(),
       deleteCartItemUseCase: injectDeleteCartItemUseCase(),
       updateCountCartItemUseCase: injectUpdateCountCartItemUseCase(),
-      addToWishlistUseCase: injectAddToWishlistUseCase(),    getWishlistUseCase: injectGetWishlistUseCase()
-
-      );
+      addToWishlistUseCase: injectAddToWishlistUseCase(),
+      getWishlistUseCase: injectGetWishlistUseCase(),
+      deleteWishlistItemtUseCase: injectDeleteWishlistItemtUseCase());
 
   ProductDetailsScreen({super.key});
   @override

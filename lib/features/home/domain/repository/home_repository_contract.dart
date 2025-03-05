@@ -28,4 +28,7 @@ abstract class HomeRepositoryContract {
       String productId);
 
   Future<Either<Failures, GetWishlistResponseEntity>> getWishlist();
+
+    Future<Either<Failures, GetWishlistResponseEntity>> deleteWishlistItem(
+      String productId);
 }

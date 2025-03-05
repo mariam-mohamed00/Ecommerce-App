@@ -63,7 +63,10 @@ class WishlistItem extends StatelessWidget {
                           ),
                         ),
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            BlocProvider.of<HomeScreenCubit>(context)
+                                .deleteWishlistItem(getWishlistEntity.id ?? '');
+                          },
                           child: Icon(
                             Icons.favorite_outlined,
                             color: MyTheme.mainColor,

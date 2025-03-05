@@ -134,3 +134,18 @@ class GetWishlistSuccessState extends HomeScreenStates {
   GetWishlistResponseEntity getWishlistResponseEntity;
   GetWishlistSuccessState({required this.getWishlistResponseEntity});
 }
+
+class DeleteWishlistItemLoadingState extends HomeScreenStates {
+  String? loadingMessage;
+  DeleteWishlistItemLoadingState({required this.loadingMessage});
+}
+
+class DeleteWishlistItemErrorState extends HomeScreenStates {
+  Failures error;
+  DeleteWishlistItemErrorState({required this.error});
+}
+
+class DeleteWishlistItemSuccessState extends HomeScreenStates {
+  GetWishlistResponseEntity getWishlistResponseEntity;
+  DeleteWishlistItemSuccessState({required this.getWishlistResponseEntity});
+}

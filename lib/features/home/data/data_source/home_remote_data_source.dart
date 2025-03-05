@@ -19,5 +19,6 @@ abstract class HomeRemoteDataSource {
   Future<Either<Failures, AddToWishlistResponseDto>> addToWishlist(
       String productId);
         Future<Either<Failures, GetWishlistResponseDto>> getWishlist();
+  Future<Either<Failures, GetWishlistResponseDto>> deleteWishlistItem(String productId);
 
 }

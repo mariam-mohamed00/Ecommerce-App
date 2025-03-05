@@ -7,6 +7,7 @@ import 'package:app_e_commerce/features/home/domain/entity/product_response_enti
 import 'package:app_e_commerce/features/home/domain/use_case/add_to_cart_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/add_to_wishlist_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/delete_cart_item_use_case.dart';
+import 'package:app_e_commerce/features/home/domain/use_case/delete_wishlist_item_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_brands_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_cart_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_categories_use_case.dart';
@@ -30,6 +31,7 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
   UpdateCountCartItemUseCase updateCountCartItemUseCase;
   AddToWishlistUseCase addToWishlistUseCase;
   GetWishlistUseCase getWishlistUseCase;
+  DeleteWishlistItemtUseCase deleteWishlistItemtUseCase;
 
   HomeScreenCubit(
       {required this.getCategoriesUseCase,
@@ -40,16 +42,17 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
       required this.deleteCartItemUseCase,
       required this.updateCountCartItemUseCase,
       required this.addToWishlistUseCase,
-      required this.getWishlistUseCase})
+      required this.getWishlistUseCase,
+      required this.deleteWishlistItemtUseCase})
       : super(HomeScreenInitialState());
 
   int selectedIndex = 0;
   int numOfCartItems = 0;
 
   List<Widget> tabs = [
-    const FavoriteTab(),
     const HomeTab(),
     const ProductTab(),
+    const FavoriteTab(),
   ];
 
   List<String> sliderImage = [
@@ -177,6 +180,17 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
     }, (r) {
       getWishListData = r.dataList ?? [];
       emit(GetWishlistSuccessState(getWishlistResponseEntity: r));
+    });
+  }
+
+  void deleteWishlistItem(String productId) async {
+    emit(DeleteWishlistItemLoadingState(loadingMessage: 'Loading...'));
+    var either = await deleteWishlistItemtUseCase.invoke(productId);
+    either.fold((l) {
+      emit(DeleteWishlistItemErrorState(error: l));
+    }, (r) {
+      getWishListData = r.dataList ?? [];
+      emit(DeleteWishlistItemSuccessState(getWishlistResponseEntity: r));
     });
   }
 }

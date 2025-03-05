@@ -11,16 +11,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CartScreen extends StatelessWidget {
   CartScreen({super.key});
   HomeScreenCubit homeScreenCubit = HomeScreenCubit(
-    getCategoriesUseCase: injectGetCategoryUseCase(),
-    getBrandsUseCase: injectGetBrandsUseCase(),
-    getProductsUseCase: injectGetProductsUseCase(),
-    addToCartUseCase: injectAddToCartUseCase(),
-    getCartUseCase: injectGetCartUseCase(),
-    deleteCartItemUseCase: injectDeleteCartItemUseCase(),
-    updateCountCartItemUseCase: injectUpdateCountCartItemUseCase(),
-    addToWishlistUseCase: injectAddToWishlistUseCase(),
-    getWishlistUseCase: injectGetWishlistUseCase()
-  );
+      getCategoriesUseCase: injectGetCategoryUseCase(),
+      getBrandsUseCase: injectGetBrandsUseCase(),
+      getProductsUseCase: injectGetProductsUseCase(),
+      addToCartUseCase: injectAddToCartUseCase(),
+      getCartUseCase: injectGetCartUseCase(),
+      deleteCartItemUseCase: injectDeleteCartItemUseCase(),
+      updateCountCartItemUseCase: injectUpdateCountCartItemUseCase(),
+      addToWishlistUseCase: injectAddToWishlistUseCase(),
+      getWishlistUseCase: injectGetWishlistUseCase(),
+      deleteWishlistItemtUseCase: injectDeleteWishlistItemtUseCase());
   @override
   Widget build(BuildContext context) {
     return BlocProvider<HomeScreenCubit>(

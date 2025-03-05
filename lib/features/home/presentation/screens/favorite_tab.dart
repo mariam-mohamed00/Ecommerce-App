@@ -29,6 +29,21 @@ class FavoriteTab extends StatelessWidget {
             );
             BlocProvider.of<HomeScreenCubit>(context).getWishlist();
           }
+          else if (state is DeleteWishlistItemSuccessState) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Center(
+                child: Text(
+                  'Item removed from wishlist',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              backgroundColor: MyTheme.mainColor,
+              duration: const Duration(seconds: 2),
+            ),
+          );
+          BlocProvider.of<HomeScreenCubit>(context).getWishlist();
+        }
         },
         builder: (context, state) {
           return Column(children: [

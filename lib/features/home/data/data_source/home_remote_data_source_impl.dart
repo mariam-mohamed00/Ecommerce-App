@@ -105,5 +105,15 @@ class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
       return Right(r);
     });
   }
+  
+  @override
+  Future<Either<Failures, GetWishlistResponseDto>> deleteWishlistItem(String productId) async{
+    var either = await homeApiManager.deleteWishlistItem(productId);
+    return either.fold((l) {
+      return Left(Failures(errorMessage: l.errorMessage));
+    }, (r) {
+      return Right(r);
+    });
+  }
 
 }

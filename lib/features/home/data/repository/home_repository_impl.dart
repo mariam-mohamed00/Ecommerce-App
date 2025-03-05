@@ -146,4 +146,19 @@ class HomeRepositoryImpl implements HomeRepositoryContract {
       },
     );
   }
+
+  @override
+  Future<Either<Failures, GetWishlistResponseEntity>> deleteWishlistItem(
+      String productId) async {
+    var either = await homeRemoteDataSource.deleteWishlistItem(productId);
+
+    return either.fold(
+      (l) {
+        return Left(Failures(errorMessage: l.errorMessage));
+      },
+      (r) {
+        return Right(r.toGetWishlistResponseEntity());
+      },
+    );
+  }
 }
