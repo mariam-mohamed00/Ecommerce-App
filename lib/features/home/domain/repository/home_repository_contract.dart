@@ -3,6 +3,7 @@ import 'package:app_e_commerce/features/home/domain/entity/add_to_cart_response_
 import 'package:app_e_commerce/features/home/domain/entity/add_to_wishlist_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/entity/category_or_brand_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/entity/get_cart_response_entity.dart';
+import 'package:app_e_commerce/features/home/domain/entity/get_wishlist_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/entity/product_response_entity.dart';
 import 'package:dartz/dartz.dart';
 
@@ -25,4 +26,6 @@ abstract class HomeRepositoryContract {
 
   Future<Either<Failures, AddToWishlistResponseEntity>> addToWishlist(
       String productId);
+
+  Future<Either<Failures, GetWishlistResponseEntity>> getWishlist();
 }

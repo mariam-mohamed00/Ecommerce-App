@@ -2,14 +2,16 @@
 
 import 'package:app_e_commerce/features/home/domain/entity/category_or_brand_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/entity/get_cart_response_entity.dart';
+import 'package:app_e_commerce/features/home/domain/entity/get_wishlist_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/entity/product_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/add_to_cart_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/add_to_wishlist_use_case.dart';
-import 'package:app_e_commerce/features/home/domain/use_case/delet_cart_item_use_case.dart';
+import 'package:app_e_commerce/features/home/domain/use_case/delete_cart_item_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_brands_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_cart_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_categories_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_products_use_case.dart';
+import 'package:app_e_commerce/features/home/domain/use_case/get_wishlist_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/update_count_cart_item_use_case.dart';
 import 'package:app_e_commerce/features/home/presentation/cubit/home_screen_states.dart';
 import 'package:app_e_commerce/features/home/presentation/screens/favorite_tab.dart';
@@ -27,6 +29,8 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
   DeleteCartItemUseCase deleteCartItemUseCase;
   UpdateCountCartItemUseCase updateCountCartItemUseCase;
   AddToWishlistUseCase addToWishlistUseCase;
+  GetWishlistUseCase getWishlistUseCase;
+
   HomeScreenCubit(
       {required this.getCategoriesUseCase,
       required this.getBrandsUseCase,
@@ -35,16 +39,17 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
       required this.getCartUseCase,
       required this.deleteCartItemUseCase,
       required this.updateCountCartItemUseCase,
-      required this.addToWishlistUseCase})
+      required this.addToWishlistUseCase,
+      required this.getWishlistUseCase})
       : super(HomeScreenInitialState());
 
   int selectedIndex = 0;
   int numOfCartItems = 0;
 
   List<Widget> tabs = [
+    const FavoriteTab(),
     const HomeTab(),
     const ProductTab(),
-    const FavoriteTab(),
   ];
 
   List<String> sliderImage = [
@@ -58,6 +63,7 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
   List<ProductEntity> productsList = [];
   List<GetProductEntity> getProductList = [];
   List<String> wishList = [];
+  List<GetWishlistDataEntity> getWishListData = [];
 
   void changeBottomNavigationBar(int newSelectedIndex) {
     HomeScreenInitialState();
@@ -108,6 +114,7 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
       print('numOfCartItems: $numOfCartItems');
       emit(AddToCartSuccessState(addToCartResponseEntity: r));
     });
+    // getWishlist();
   }
 
   void getCart() async {
@@ -160,5 +167,16 @@ class HomeScreenCubit extends Cubit<HomeScreenStates> {
 
   bool isWishlisted(String productId) {
     return wishList.contains(productId);
+  }
+
+  void getWishlist() async {
+    emit(GetWishlistLoadingState(loadingMessage: 'Loading...'));
+    var either = await getWishlistUseCase.invoke();
+    either.fold((l) {
+      emit(GetWishlistErrorState(error: l));
+    }, (r) {
+      getWishListData = r.dataList ?? [];
+      emit(GetWishlistSuccessState(getWishlistResponseEntity: r));
+    });
   }
 }

@@ -12,11 +12,12 @@ import 'package:app_e_commerce/features/home/data/repository/home_repository_imp
 import 'package:app_e_commerce/features/home/domain/repository/home_repository_contract.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/add_to_cart_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/add_to_wishlist_use_case.dart';
-import 'package:app_e_commerce/features/home/domain/use_case/delet_cart_item_use_case.dart';
+import 'package:app_e_commerce/features/home/domain/use_case/delete_cart_item_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_brands_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_cart_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_categories_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/get_products_use_case.dart';
+import 'package:app_e_commerce/features/home/domain/use_case/get_wishlist_use_case.dart';
 import 'package:app_e_commerce/features/home/domain/use_case/update_count_cart_item_use_case.dart';
 
 RegisterUseCase injectRegisterUseCase() {
@@ -73,6 +74,12 @@ UpdateCountCartItemUseCase injectUpdateCountCartItemUseCase() {
 
 AddToWishlistUseCase injectAddToWishlistUseCase() {
   return AddToWishlistUseCase(
+      homeRepositoryContract: injectHomeRepositoryContract());
+}
+
+
+GetWishlistUseCase injectGetWishlistUseCase() {
+  return GetWishlistUseCase(
       homeRepositoryContract: injectHomeRepositoryContract());
 }
 

@@ -20,50 +20,15 @@ class GridViewCartItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Stack(
-          //   children: [
-          //     ClipRRect(
-          //       borderRadius: BorderRadius.circular(15.r),
-          //       child: Image.network(
-          //         productEntity.imageCover ?? '',
-          //         width: 180.w,
-          //         height: 130,
-          //         fit: BoxFit.fill,
-          //       ),
-          //     ),
-          //     Positioned(
-          //         top: 5.h,
-          //         right: 2.w,
-          //         child: CircleAvatar(
-          //           backgroundColor: MyTheme.whiteColor,
-          //           radius: 15,
-          //           child: IconButton(
-          //               onPressed: () {
-          //                 // isWishListed = !isWishListed;
-          //                 // setState(() {});
-          //               },
-          //               color: MyTheme.mainColor,
-          //               padding: EdgeInsets.zero,
-          //               icon: isWishListed == true
-          //                   ? const Icon(Icons.favorite_rounded,
-          //                       color: Colors.red)
-          //                   : const Icon(
-          //                       Icons.favorite_border_rounded,
-          //                     )),
-          //         ))
-          //   ],
-          // ),
-         
-                           ClipRRect(
-                                    borderRadius: BorderRadius.circular(15.r),
-                                    child: Image.network(
-                                      productEntity.imageCover ??
-                                          '',
-                                      width: 180.w,
-                                      height: 130,
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(15.r),
+            child: Image.network(
+              productEntity.imageCover ?? '',
+              width: 180.w,
+              height: 130,
+              fit: BoxFit.fill,
+            ),
+          ),
           SizedBox(
             height: 10.h,
           ),
@@ -109,17 +74,16 @@ class GridViewCartItem extends StatelessWidget {
                   Image.asset('assets/icons/star.png'),
                   const Spacer(),
                   InkWell(
-                      onTap: () {
-                        BlocProvider.of<HomeScreenCubit>(context)
-                            .addToCart(productEntity.id ?? '');
-                      },
-                      child: Icon(
-                        Icons.add_circle,
-                        size: 32.sp,
-                        color: MyTheme.mainColor,
-                      ),
+                    onTap: () {
+                      BlocProvider.of<HomeScreenCubit>(context)
+                          .addToCart(productEntity.id ?? '');
+                    },
+                    child: Icon(
+                      Icons.add_circle,
+                      size: 32.sp,
+                      color: MyTheme.mainColor,
                     ),
-                  
+                  ),
                 ],
               )),
           SizedBox(

@@ -4,11 +4,13 @@ import 'package:app_e_commerce/features/home/data/mappers/add_to_cart_response_d
 import 'package:app_e_commerce/features/home/data/mappers/add_to_wishlist_response_dto_mappers.dart';
 import 'package:app_e_commerce/features/home/data/mappers/category_or_brand_response_dto_mappers.dart';
 import 'package:app_e_commerce/features/home/data/mappers/get_cart_response_dto_mappers.dart';
+import 'package:app_e_commerce/features/home/data/mappers/get_wishlist_response_dto_mappers.dart';
 import 'package:app_e_commerce/features/home/data/mappers/product_response_dto_mappers.dart';
 import 'package:app_e_commerce/features/home/domain/entity/add_to_cart_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/entity/add_to_wishlist_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/entity/category_or_brand_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/entity/get_cart_response_entity.dart';
+import 'package:app_e_commerce/features/home/domain/entity/get_wishlist_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/entity/product_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/repository/home_repository_contract.dart';
 import 'package:dartz/dartz.dart';
@@ -131,4 +133,17 @@ class HomeRepositoryImpl implements HomeRepositoryContract {
     );
   }
 
+  @override
+  Future<Either<Failures, GetWishlistResponseEntity>> getWishlist() async {
+    var either = await homeRemoteDataSource.getWishlist();
+
+    return either.fold(
+      (l) {
+        return Left(Failures(errorMessage: l.errorMessage));
+      },
+      (r) {
+        return Right(r.toGetWishlistResponseEntity());
+      },
+    );
+  }
 }

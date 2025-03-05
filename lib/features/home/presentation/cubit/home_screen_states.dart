@@ -3,6 +3,7 @@ import 'package:app_e_commerce/features/home/domain/entity/add_to_cart_response_
 import 'package:app_e_commerce/features/home/domain/entity/add_to_wishlist_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/entity/category_or_brand_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/entity/get_cart_response_entity.dart';
+import 'package:app_e_commerce/features/home/domain/entity/get_wishlist_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/entity/product_response_entity.dart';
 
 abstract class HomeScreenStates {}
@@ -41,20 +42,6 @@ class ProductTabSuccessState extends HomeScreenStates {
   ProductTabSuccessState({required this.productResponseEntity});
 }
 
-class SearchProductTabLoadingState extends HomeScreenStates {
-  String? loadingMessage;
-  SearchProductTabLoadingState({required this.loadingMessage});
-}
-
-class SearchProductTabErrorState extends HomeScreenStates {
-  Failures error;
-  SearchProductTabErrorState({required this.error});
-}
-
-class SearchProductTabSuccessState extends HomeScreenStates {
-  ProductResponseEntity productResponseEntity;
-  SearchProductTabSuccessState({required this.productResponseEntity});
-}
 
 class AddToCartLoadingState extends HomeScreenStates {
   String? loadingMessage;
@@ -116,6 +103,7 @@ class UpdateCountCartItemSuccessState extends HomeScreenStates {
   UpdateCountCartItemSuccessState({required this.getCartResponseEntity});
 }
 
+
 class AddToWishlistLoadingState extends HomeScreenStates {
   String? loadingMessage;
   AddToWishlistLoadingState({required this.loadingMessage});
@@ -129,4 +117,20 @@ class AddToWishlistErrorState extends HomeScreenStates {
 class AddToWishlistSuccessState extends HomeScreenStates {
   AddToWishlistResponseEntity addToWishlistEntity;
   AddToWishlistSuccessState({required this.addToWishlistEntity});
+}
+
+
+class GetWishlistLoadingState extends HomeScreenStates {
+  String? loadingMessage;
+  GetWishlistLoadingState({required this.loadingMessage});
+}
+
+class GetWishlistErrorState extends HomeScreenStates {
+  Failures error;
+  GetWishlistErrorState({required this.error});
+}
+
+class GetWishlistSuccessState extends HomeScreenStates {
+  GetWishlistResponseEntity getWishlistResponseEntity;
+  GetWishlistSuccessState({required this.getWishlistResponseEntity});
 }
