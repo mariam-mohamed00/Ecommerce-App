@@ -63,7 +63,7 @@ class GridViewCartItem extends StatelessWidget {
               child: Row(
                 children: [
                   Text('Review (${productEntity.ratingsAverage})',
-                      // maxLines: 1,
+                      maxLines: 1,
                       style: Theme.of(context).textTheme.titleSmall!.copyWith(
                           fontSize: 14.sp,
                           color: MyTheme.textColor,

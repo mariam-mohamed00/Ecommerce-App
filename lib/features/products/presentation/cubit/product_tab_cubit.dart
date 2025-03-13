@@ -1,14 +1,14 @@
 import 'package:app_e_commerce/features/products/domain/entity/product_response_entity.dart';
 import 'package:app_e_commerce/features/products/domain/use_case/get_products_use_case.dart';
-import 'package:app_e_commerce/features/products/presentation/cubit/product_screen_states.dart';
+import 'package:app_e_commerce/features/products/presentation/cubit/product_tab_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ProductScreenCubit extends Cubit<ProductScreenStates> {
+class ProductTabCubit extends Cubit<ProducTabStates> {
   GetProductsUseCase getProductsUseCase;
 
-  ProductScreenCubit({
+  ProductTabCubit({
     required this.getProductsUseCase,
-  }) : super(ProductScreenInitialState());
+  }) : super(ProductTabInitialState());
 
   List<ProductEntity> productsList = [];
 
