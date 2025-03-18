@@ -1,4 +1,5 @@
-import 'package:app_e_commerce/core/di/di.dart';
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:app_e_commerce/core/theme/my_theme.dart';
 import 'package:app_e_commerce/features/cart/presentation/cubit/cart_screen_cubit.dart';
 import 'package:app_e_commerce/features/cart/presentation/cubit/cart_screen_states.dart';
@@ -7,18 +8,43 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-// ignore: must_be_immutable
 class CartScreen extends StatelessWidget {
-  CartScreen({super.key});
-  CartScreenCubit cartScreenCubit = CartScreenCubit(
-      addToCartUseCase: injectAddToCartUseCase(),
-      getCartUseCase: injectGetCartUseCase(),
-      deleteCartItemUseCase: injectDeleteCartItemUseCase(),
-      updateCountCartItemUseCase: injectUpdateCountCartItemUseCase());
+  const CartScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CartScreenCubit, CartScreenStates>(
-      bloc: cartScreenCubit..getCart(),
+    return BlocConsumer<CartScreenCubit, CartScreenStates>(
+      listener: (context, state) async {
+        if (state is DeleteCartItemLoadingState) {
+          await Future.delayed(const Duration(seconds: 2));
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Center(
+                  child: Text(
+                'Item deleted successfully',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              )),
+              backgroundColor: MyTheme.mainColor,
+              duration: const Duration(seconds: 2),
+            ),
+          );
+        }
+        if (state is UpdateCountCartItemLoadingState) {
+          await Future.delayed(const Duration(seconds: 2));
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Center(
+                  child: Text(
+                'Item updated successfully',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              )),
+              backgroundColor: MyTheme.mainColor,
+              duration: const Duration(seconds: 2),
+            ),
+          );
+        }
+      },
+      bloc: BlocProvider.of<CartScreenCubit>(context)..getCart(),
       builder: (context, state) {
         return Scaffold(
             appBar: AppBar(
@@ -40,9 +66,7 @@ class CartScreen extends StatelessWidget {
               ),
               actions: [
                 IconButton(
-                  onPressed: () {
-                    // Button logic here
-                  },
+                  onPressed: () {},
                   icon: Icon(Icons.search, color: MyTheme.mainColor),
                 ),
               ],
@@ -55,10 +79,8 @@ class CartScreen extends StatelessWidget {
                         child: ListView.builder(
                             itemBuilder: (context, index) {
                               return CartItem(
-                                  getProductEntity: state
-                                      .getCartResponseEntity
-                                      .data!
-                                      .productsList![index]);
+                                  getProductEntity: state.getCartResponseEntity
+                                      .data!.productsList![index]);
                             },
                             itemCount: state
                                 .getCartResponseEntity.numOfCartItems!
@@ -93,9 +115,7 @@ class CartScreen extends StatelessWidget {
                               ],
                             ),
                             InkWell(
-                              onTap: () {
-                                //logic here
-                              },
+                              onTap: () {},
                               child: Container(
                                 height: 60.h,
                                 width: 270.w,
@@ -103,8 +123,8 @@ class CartScreen extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(20.r),
                                     color: MyTheme.mainColor),
                                 child: Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 12.h, bottom: 12.h),
+                                  padding:
+                                      EdgeInsets.only(top: 12.h, bottom: 12.h),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
@@ -134,8 +154,7 @@ class CartScreen extends StatelessWidget {
                     ],
                   )
                 : Center(
-                    child:
-                        CircularProgressIndicator(color: MyTheme.mainColor),
+                    child: CircularProgressIndicator(color: MyTheme.mainColor),
                   ));
       },
     );

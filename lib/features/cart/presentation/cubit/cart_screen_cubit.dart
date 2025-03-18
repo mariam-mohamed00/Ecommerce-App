@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:app_e_commerce/features/cart/domain/entity/get_cart_response_entity.dart';
 import 'package:app_e_commerce/features/cart/domain/use_case/add_to_cart_use_case.dart';
 import 'package:app_e_commerce/features/cart/domain/use_case/delete_cart_item_use_case.dart';
@@ -17,7 +19,9 @@ class CartScreenCubit extends Cubit<CartScreenStates> {
     required this.getCartUseCase,
     required this.deleteCartItemUseCase,
     required this.updateCountCartItemUseCase,
-  }) : super(CartScreenInitialState());
+  }) : super(CartScreenInitialState()) {
+    getCart();
+  }
 
   int numOfCartItems = 0;
 
@@ -30,7 +34,6 @@ class CartScreenCubit extends Cubit<CartScreenStates> {
       emit(AddToCartErrorState(error: l));
     }, (r) {
       numOfCartItems = r.numOfCartItems?.toInt() ?? 0;
-      // ignore: avoid_print
       print('numOfCartItems: $numOfCartItems');
       emit(AddToCartSuccessState(addToCartResponseEntity: r));
     });
@@ -43,6 +46,7 @@ class CartScreenCubit extends Cubit<CartScreenStates> {
       emit(GetCartErrorState(error: l));
     }, (r) {
       getProductList = r.data?.productsList ?? [];
+      numOfCartItems = r.numOfCartItems?.toInt() ?? 0;
       emit(GetCartSuccessState(getCartResponseEntity: r));
     });
   }
@@ -54,6 +58,8 @@ class CartScreenCubit extends Cubit<CartScreenStates> {
       emit(DeleteCartItemErrorState(error: l));
     }, (r) {
       getProductList = r.data?.productsList ?? [];
+      numOfCartItems = r.numOfCartItems?.toInt() ?? 0;
+
       emit(GetCartSuccessState(getCartResponseEntity: r));
     });
   }
@@ -65,6 +71,7 @@ class CartScreenCubit extends Cubit<CartScreenStates> {
       emit(UpdateCountCartItemErrorState(error: l));
     }, (r) {
       getProductList = r.data?.productsList ?? [];
+
       emit(GetCartSuccessState(getCartResponseEntity: r));
     });
   }
