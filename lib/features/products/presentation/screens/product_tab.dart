@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:app_e_commerce/core/di/di.dart';
 import 'package:app_e_commerce/core/routing/routes.dart';
 import 'package:app_e_commerce/core/theme/my_theme.dart';
@@ -13,26 +15,27 @@ import '../../../../core/widgets/search_with_shopping_car.dart';
 
 class ProductTab extends StatelessWidget {
   ProductTab({super.key});
-  final ProductTabCubit productTabCubit =
-      ProductTabCubit(getProductsUseCase: injectGetProductsUseCase());
+  final ProductTabCubit productTabCubit = ProductTabCubit(
+      getProductsUseCase: injectGetProductsUseCase(),
+      getSpecificProductUseCase: injectGetSpecificProductUseCase());
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [ 
+      providers: [
         BlocProvider(
           create: (context) => productTabCubit..getProducts(),
         ),
       ],
       child: BlocListener<CartScreenCubit, CartScreenStates>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state is AddToCartSuccessState) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: const Center(
                     child: Text(
                   'Item added to cart',
-                  style: TextStyle(fontWeight: FontWeight.bold), 
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 )),
                 backgroundColor: MyTheme.mainColor,
                 duration: const Duration(seconds: 2),
@@ -40,7 +43,7 @@ class ProductTab extends StatelessWidget {
             );
           }
         },
-        child: BlocBuilder<ProductTabCubit, ProducTabStates>(
+        child: BlocBuilder<ProductTabCubit, ProductTabStates>(
             builder: (context, state) {
           return Column(children: [
             const SearchWithShoppingCar(),
@@ -74,7 +77,8 @@ class ProductTab extends StatelessWidget {
                                   Routes.productDetailsScreen,
                                   arguments:
                                       BlocProvider.of<ProductTabCubit>(context)
-                                          .productsList[index],
+                                          .productsList[index]
+                                          .id,
                                 );
                               },
                               child: GridViewCartItem(
@@ -92,12 +96,8 @@ class ProductTab extends StatelessWidget {
                                       onPressed: () {},
                                       color: MyTheme.mainColor,
                                       padding: EdgeInsets.zero,
-                                      icon: true
-                                          ? const Icon(Icons.favorite_rounded,
-                                              color: Colors.red)
-                                          : const Icon(
-                                              Icons.favorite_border_rounded,
-                                            )),
+                                      icon: const Icon(Icons.favorite_rounded,
+                                          color: Colors.red)),
                                 ))
                           ],
                         );

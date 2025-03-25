@@ -27,6 +27,7 @@ import 'package:app_e_commerce/features/products/data/model/api/product_api_mana
 import 'package:app_e_commerce/features/products/data/repository/product_repository_impl.dart';
 import 'package:app_e_commerce/features/products/domain/repository/product_repository_contract.dart';
 import 'package:app_e_commerce/features/products/domain/use_case/get_products_use_case.dart';
+import 'package:app_e_commerce/features/products/domain/use_case/get_specific_product_use_case.dart';
 import 'package:app_e_commerce/features/wishlist/data/data_source/wishlist_remote_data_source.dart';
 import 'package:app_e_commerce/features/wishlist/data/data_source/wishlist_remote_data_source_impl.dart';
 import 'package:app_e_commerce/features/wishlist/data/model/api/wishlist_api_manager.dart';
@@ -64,6 +65,11 @@ GetBrandsUseCase injectGetBrandsUseCase() {
 
 GetProductsUseCase injectGetProductsUseCase() {
   return GetProductsUseCase(
+      productRepositoryContract: injectProductRepositoryContract());
+}
+
+GetSpecificProductUseCase injectGetSpecificProductUseCase() {
+  return GetSpecificProductUseCase(
       productRepositoryContract: injectProductRepositoryContract());
 }
 

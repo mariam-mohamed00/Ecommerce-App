@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:app_e_commerce/core/routing/routes.dart';
 import 'package:app_e_commerce/core/theme/my_theme.dart';
 import 'package:app_e_commerce/features/cart/presentation/cubit/cart_screen_cubit.dart';
 import 'package:app_e_commerce/features/cart/presentation/cubit/cart_screen_states.dart';
@@ -78,9 +79,23 @@ class CartScreen extends StatelessWidget {
                       Expanded(
                         child: ListView.builder(
                             itemBuilder: (context, index) {
-                              return CartItem(
-                                  getProductEntity: state.getCartResponseEntity
-                                      .data!.productsList![index]);
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.of(context).pushNamed(
+                                      Routes.productDetailsScreen,
+                                      arguments:
+                                          BlocProvider.of<CartScreenCubit>(
+                                                  context)
+                                              .getProductList[index]
+                                              .product
+                                              !.id);
+                                },
+                                child: CartItem(
+                                    getProductEntity: state
+                                        .getCartResponseEntity
+                                        .data!
+                                        .productsList![index]),
+                              );
                             },
                             itemCount: state
                                 .getCartResponseEntity.numOfCartItems!
