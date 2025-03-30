@@ -11,7 +11,7 @@ class AppRouter {
     switch (settings.name) {
       case Routes.home:
         return MaterialPageRoute(
-            builder: (context) => HomeScreen(), settings: settings);
+            builder: (context) => const HomeScreen(), settings: settings);
       case Routes.loginScreen:
         return MaterialPageRoute(
             builder: (context) => const LoginScreen(), settings: settings);
@@ -20,7 +20,7 @@ class AppRouter {
             builder: (context) => const RegisterScreen(), settings: settings);
       case Routes.cartScreen:
         return MaterialPageRoute(
-            builder: (context) => CartScreen(), settings: settings);
+            builder: (context) => const CartScreen(), settings: settings);
       case Routes.productDetailsScreen:
         return MaterialPageRoute(
             builder: (context) => ProductDetailsScreen(), settings: settings);

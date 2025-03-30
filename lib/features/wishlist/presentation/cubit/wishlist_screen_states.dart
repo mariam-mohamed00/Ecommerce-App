@@ -1,5 +1,6 @@
 import 'package:app_e_commerce/core/errors/failures.dart';
 import 'package:app_e_commerce/features/wishlist/domain/entity/add_to_wishlist_response_entity.dart';
+import 'package:app_e_commerce/features/wishlist/domain/entity/delete_wishlist_item_response_entity.dart';
 import 'package:app_e_commerce/features/wishlist/domain/entity/get_wishlist_response_entity.dart';
 
 abstract class WishlistTabStates {}
@@ -21,6 +22,8 @@ class AddToWishlistSuccessState extends WishlistTabStates {
   AddToWishlistSuccessState({required this.addToWishlistEntity});
 }
 
+class WishlistUpdatedState extends WishlistTabStates {}
+
 class GetWishlistLoadingState extends WishlistTabStates {
   String? loadingMessage;
   GetWishlistLoadingState({required this.loadingMessage});
@@ -36,17 +39,18 @@ class GetWishlistSuccessState extends WishlistTabStates {
   GetWishlistSuccessState({required this.getWishlistResponseEntity});
 }
 
-// class DeleteWishlistItemLoadingState extends HomeScreenStates {
-//   String? loadingMessage;
-//   DeleteWishlistItemLoadingState({required this.loadingMessage});
-// }
+class DeleteWishlistItemLoadingState extends WishlistTabStates {
+  String? loadingMessage;
+  DeleteWishlistItemLoadingState({required this.loadingMessage});
+}
 
-// class DeleteWishlistItemErrorState extends HomeScreenStates {
-//   Failures error;
-//   DeleteWishlistItemErrorState({required this.error});
-// }
+class DeleteWishlistItemErrorState extends WishlistTabStates {
+  Failures error;
+  DeleteWishlistItemErrorState({required this.error});
+}
 
-// class DeleteWishlistItemSuccessState extends HomeScreenStates {
-//   GetWishlistResponseEntity getWishlistResponseEntity;
-//   DeleteWishlistItemSuccessState({required this.getWishlistResponseEntity});
-// }
+class DeleteWishlistItemSuccessState extends WishlistTabStates {
+  DeleteWishlistItemResponseEntity deleteWishlistItemResponseEntity;
+  DeleteWishlistItemSuccessState(
+      {required this.deleteWishlistItemResponseEntity});
+}

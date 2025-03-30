@@ -4,7 +4,7 @@ import 'package:app_e_commerce/core/utils/shared_preference.dart';
 import 'package:app_e_commerce/features/home/presentation/screens/home_tab.dart';
 import 'package:app_e_commerce/features/home/presentation/widgets/default_bottom_navigation_bar.dart';
 import 'package:app_e_commerce/features/products/presentation/screens/product_tab.dart';
-import 'package:app_e_commerce/features/wishlist/presentation/screens/favorite_tab.dart';
+import 'package:app_e_commerce/features/wishlist/presentation/screens/wishlist_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -20,8 +20,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Widget> tabs = [
     HomeTab(),
-    ProductTab(),
-    FavoriteTab(),
+    const ProductTab(),
+    const WishlistTab(),
   ];
 
   @override

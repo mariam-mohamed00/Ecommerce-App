@@ -35,7 +35,10 @@ class CartScreenCubit extends Cubit<CartScreenStates> {
     }, (r) {
       numOfCartItems = r.numOfCartItems?.toInt() ?? 0;
       print('numOfCartItems: $numOfCartItems');
-      emit(AddToCartSuccessState(addToCartResponseEntity: r));
+      int newCount = getProductCount(productId)?.toInt() ?? 0;
+      newCount++;
+      emit(AddToCartSuccessState(
+          addToCartResponseEntity: r, newCount: newCount));
     });
   }
 
@@ -74,5 +77,14 @@ class CartScreenCubit extends Cubit<CartScreenStates> {
 
       emit(GetCartSuccessState(getCartResponseEntity: r));
     });
+  }
+
+  num? getProductCount(String productId) {
+    for (int i = 0; i < getProductList.length; i++) {
+      if (getProductList[i].product!.id == productId) {
+        return getProductList[i].count;
+      }
+    }
+    return 0;
   }
 }

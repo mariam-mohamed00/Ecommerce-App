@@ -1,6 +1,7 @@
 import 'package:app_e_commerce/core/theme/my_theme.dart';
 import 'package:app_e_commerce/features/cart/presentation/cubit/cart_screen_cubit.dart';
 import 'package:app_e_commerce/features/wishlist/domain/entity/get_wishlist_response_entity.dart';
+import 'package:app_e_commerce/features/wishlist/presentation/cubit/wishlist_screen_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,7 +9,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 // ignore: must_be_immutable
 class WishlistItem extends StatelessWidget {
   GetWishlistDataEntity getWishlistEntity;
-  WishlistItem({super.key, required this.getWishlistEntity});
+  final VoidCallback onDelete;
+  WishlistItem({super.key, required this.getWishlistEntity, required this.onDelete});
 
   @override
   Widget build(BuildContext context) {
@@ -64,8 +66,8 @@ class WishlistItem extends StatelessWidget {
                         ),
                         InkWell(
                           onTap: () {
-                            // BlocProvider.of<WishlistScreenCubit>(context)
-                            //     .deleteWishlistItem(getWishlistEntity.id ?? '');
+                            BlocProvider.of<WishlistScreenCubit>(context)
+                                .deleteWishlistItem(getWishlistEntity.id ?? '');
                           },
                           child: Icon(
                             Icons.favorite_outlined,

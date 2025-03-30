@@ -34,6 +34,7 @@ import 'package:app_e_commerce/features/wishlist/data/model/api/wishlist_api_man
 import 'package:app_e_commerce/features/wishlist/data/repository/wishlist_repository_impl.dart';
 import 'package:app_e_commerce/features/wishlist/domain/repository/wishlist_repository_contract.dart';
 import 'package:app_e_commerce/features/wishlist/domain/use_case/add_to_wishlist_use_case.dart';
+import 'package:app_e_commerce/features/wishlist/domain/use_case/delete_wishlist_item_use_case.dart';
 import 'package:app_e_commerce/features/wishlist/domain/use_case/get_wishlist_use_case.dart';
 
 RegisterUseCase injectRegisterUseCase() {
@@ -102,10 +103,10 @@ GetWishlistUseCase injectGetWishlistUseCase() {
       wishlistRepositoryContract: injectWishlistRepositoryContract());
 }
 
-// DeleteWishlistItemtUseCase injectDeleteWishlistItemtUseCase() {
-//   return DeleteWishlistItemtUseCase(
-//       homeRepositoryContract: injectHomeRepositoryContract());
-// }
+DeleteWishlistItemtUseCase injectDeleteWishlistItemtUseCase() {
+  return DeleteWishlistItemtUseCase(
+      wishlistRepositoryContract: injectWishlistRepositoryContract());
+}
 
 HomeRepositoryContract injectHomeRepositoryContract() {
   return HomeRepositoryImpl(homeRemoteDataSource: injectHomeRemoteDataSource());

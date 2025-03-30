@@ -1,13 +1,13 @@
-// import 'package:app_e_commerce/core/errors/failures.dart';
-// import 'package:app_e_commerce/features/home/domain/entity/get_wishlist_response_entity.dart';
-// import 'package:app_e_commerce/features/home/domain/repository/home_repository_contract.dart';
-// import 'package:dartz/dartz.dart';
+import 'package:app_e_commerce/core/errors/failures.dart';
+import 'package:app_e_commerce/features/wishlist/domain/entity/delete_wishlist_item_response_entity.dart';
+import 'package:app_e_commerce/features/wishlist/domain/repository/wishlist_repository_contract.dart';
+import 'package:dartz/dartz.dart';
 
-// class DeleteWishlistItemtUseCase {
-//    HomeRepositoryContract homeRepositoryContract;
-//   DeleteWishlistItemtUseCase({required this.homeRepositoryContract});
+class DeleteWishlistItemtUseCase {
+   WishlistRepositoryContract wishlistRepositoryContract;
+  DeleteWishlistItemtUseCase({required this.wishlistRepositoryContract});
 
-//   Future<Either<Failures, GetWishlistResponseEntity>> invoke(String productId){
-//     return homeRepositoryContract.deleteWishlistItem(productId);
-//   }
-// }
+  Future<Either<Failures, DeleteWishlistItemResponseEntity>> invoke(String productId){
+    return wishlistRepositoryContract.deleteWishlistItem(productId);
+  }
+}

@@ -30,20 +30,6 @@ class CartScreen extends StatelessWidget {
             ),
           );
         }
-        if (state is UpdateCountCartItemLoadingState) {
-          await Future.delayed(const Duration(seconds: 2));
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: const Center(
-                  child: Text(
-                'Item updated successfully',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              )),
-              backgroundColor: MyTheme.mainColor,
-              duration: const Duration(seconds: 2),
-            ),
-          );
-        }
       },
       bloc: BlocProvider.of<CartScreenCubit>(context)..getCart(),
       builder: (context, state) {
@@ -87,8 +73,8 @@ class CartScreen extends StatelessWidget {
                                           BlocProvider.of<CartScreenCubit>(
                                                   context)
                                               .getProductList[index]
-                                              .product
-                                              !.id);
+                                              .product!
+                                              .id);
                                 },
                                 child: CartItem(
                                     getProductEntity: state

@@ -18,7 +18,9 @@ class AddToCartErrorState extends CartScreenStates {
 
 class AddToCartSuccessState extends CartScreenStates {
   AddToCartResponseEntity addToCartResponseEntity;
-  AddToCartSuccessState({required this.addToCartResponseEntity});
+  int newCount;
+  AddToCartSuccessState(
+      {required this.addToCartResponseEntity, required this.newCount});
 }
 
 class GetCartLoadingState extends CartScreenStates {

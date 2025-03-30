@@ -4,6 +4,7 @@ import 'package:app_e_commerce/core/constants/api_constants.dart';
 import 'package:app_e_commerce/core/errors/failures.dart';
 import 'package:app_e_commerce/core/utils/shared_preference.dart';
 import 'package:app_e_commerce/features/wishlist/data/model/response/add_to_wishlist_response_dto.dart';
+import 'package:app_e_commerce/features/wishlist/data/model/response/delete_wishlist_item_response_dto.dart';
 import 'package:app_e_commerce/features/wishlist/data/model/response/get_wishlist_response_dto.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
@@ -68,7 +69,7 @@ class WishlistApiManager {
     }
   }
 
-  Future<Either<Failures, GetWishlistResponseDto>> deleteWishlistItem(
+  Future<Either<Failures, DeleteWishlistItemResponseDto>> deleteWishlistItem(
       String productId) async {
     Uri url = Uri.https(ApiConstants.baseUrl,
         '${ApiConstants.addToWishlistEndPoint}/$productId');
@@ -80,7 +81,7 @@ class WishlistApiManager {
       var response =
           await http.delete(url, headers: {'token': token.toString()});
       var json = jsonDecode(response.body);
-      var deleteWishlistItemResponse = GetWishlistResponseDto.fromJson(json);
+      var deleteWishlistItemResponse = DeleteWishlistItemResponseDto.fromJson(json);
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return Right(deleteWishlistItemResponse);
       } else if (response.statusCode == 401) {

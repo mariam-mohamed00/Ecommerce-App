@@ -20,7 +20,8 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var productId = ModalRoute.of(context)!.settings.arguments as String;
-
+    var count =
+        BlocProvider.of<CartScreenCubit>(context).getProductCount(productId);
     return Scaffold(
         appBar: AppBar(
           surfaceTintColor: Colors.transparent,
@@ -164,6 +165,14 @@ class ProductDetailsScreen extends StatelessWidget {
                                   BlocBuilder<CartScreenCubit,
                                       CartScreenStates>(
                                     builder: (context, state) {
+                                      if (state is AddToCartSuccessState) {
+                                        count = state.newCount;
+                                      } else {
+                                        count =
+                                            BlocProvider.of<CartScreenCubit>(
+                                                    context)
+                                                .getProductCount(productId);
+                                      }
                                       return Container(
                                         height: 42.h,
                                         width: 122.w,
@@ -177,32 +186,16 @@ class ProductDetailsScreen extends StatelessWidget {
                                           children: [
                                             InkWell(
                                               onTap: () {
-                                                int counter = BlocProvider.of<
-                                                            CartScreenCubit>(
-                                                        context)
-                                                    .getProductList
-                                                    .firstWhere((product) =>
-                                                        product.product!.id ==
-                                                        productId)
-                                                    .count!
-                                                    .toInt();
-                                                counter--;
-                                                BlocProvider.of<
-                                                            CartScreenCubit>(
-                                                        context)
-                                                    .updateCountCartItem(
-                                                        BlocProvider.of<CartScreenCubit>(
-                                                                    context)
-                                                                .getProductList
-                                                                .firstWhere((product) =>
-                                                                    product
-                                                                        .product!
-                                                                        .id ==
-                                                                    productId)
-                                                                .product!
-                                                                .id ??
-                                                            '',
-                                                        counter);
+                                                if (count! > 0) {
+                                                  BlocProvider.of<
+                                                              CartScreenCubit>(
+                                                          context)
+                                                      .updateCountCartItem(
+                                                          productId,
+                                                          int.parse((count! - 1)
+                                                              .toString()));
+                                                }
+                                                return;
                                               },
                                               child: Icon(
                                                   Icons.remove_circle_outline,
@@ -210,46 +203,23 @@ class ProductDetailsScreen extends StatelessWidget {
                                                   color: MyTheme.whiteColor),
                                             ),
                                             Text(
-                                              BlocProvider.of<CartScreenCubit>(
-                                                      context)
-                                                  .getProductList
-                                                  .firstWhere((product) =>
-                                                      product.product!.id ==
-                                                      productId)
-                                                  .count
-                                                  .toString(),
+                                              count.toString(),
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .titleMedium,
                                             ),
                                             InkWell(
                                               onTap: () {
-                                                int counter = BlocProvider.of<
-                                                            CartScreenCubit>(
-                                                        context)
-                                                    .getProductList
-                                                    .firstWhere((product) =>
-                                                        product.product!.id ==
-                                                        productId)
-                                                    .count!
-                                                    .toInt();
-                                                counter++;
-                                                BlocProvider.of<
-                                                            CartScreenCubit>(
-                                                        context)
-                                                    .updateCountCartItem(
-                                                        BlocProvider.of<CartScreenCubit>(
-                                                                    context)
-                                                                .getProductList
-                                                                .firstWhere((product) =>
-                                                                    product
-                                                                        .product!
-                                                                        .id ==
-                                                                    productId)
-                                                                .product!
-                                                                .id ??
-                                                            '',
-                                                        counter);
+                                                if (count! > 0) {
+                                                  BlocProvider.of<
+                                                              CartScreenCubit>(
+                                                          context)
+                                                      .updateCountCartItem(
+                                                          productId,
+                                                          int.parse((count! + 1)
+                                                              .toString()));
+                                                }
+                                                return;
                                               },
                                               child: Icon(
                                                 Icons.add_circle_outline,
@@ -351,6 +321,7 @@ class ProductDetailsScreen extends StatelessWidget {
                               onPressed: () {
                                 BlocProvider.of<CartScreenCubit>(context)
                                     .addToCart(productId.toString());
+                                // count = (count ?? 0) + 1;
                               },
                               style: TextButton.styleFrom(
                                 backgroundColor: MyTheme.mainColor,
