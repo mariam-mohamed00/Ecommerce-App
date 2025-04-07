@@ -9,8 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/widgets/search_with_shopping_car.dart';
-
 class WishlistTab extends StatelessWidget {
   const WishlistTab({super.key});
 
@@ -51,10 +49,46 @@ class WishlistTab extends StatelessWidget {
         },
         builder: (context, state) {
           return Column(children: [
-            const SearchWithShoppingCar(),
-            SizedBox(
-              height: 24.h,
+            Row(
+              children: [
+                Padding(
+                    padding: EdgeInsets.only(right: 8.w),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(Routes.cartScreen);
+                      },
+                      child: BlocBuilder<CartScreenCubit, CartScreenStates>(
+                        builder: (context, state) {
+                          return Badge(
+                              label: Text(
+                                  BlocProvider.of<CartScreenCubit>(context)
+                                      .numOfCartItems
+                                      .toString()),
+                              child: Icon(
+                                Icons.shopping_cart_outlined,
+                                color: MyTheme.mainColor,
+                                size: 28.sp,
+                              ));
+                        },
+                      ),
+                    )),
+                Text(
+                  'View Cart',
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: MyTheme.mainColor,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w600),
+                ),
+              ],
             ),
+            SizedBox(
+              height: 14.h,
+            ),
+            Text('Wishlist',
+                style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: MyTheme.mainColor,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.w600)),
             state is GetWishlistSuccessState
                 ? ListView.builder(
                     shrinkWrap: true,

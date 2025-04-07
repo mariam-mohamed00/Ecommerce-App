@@ -17,17 +17,6 @@ class CategoriesOrBrandsRowWidget extends StatelessWidget {
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w500,
                 )),
-        InkWell(
-          onTap: () {},
-          child: Text(
-            'View All',
-            style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                  color: MyTheme.textColor,
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.w400,
-                ),
-          ),
-        ),
       ],
     );
   }

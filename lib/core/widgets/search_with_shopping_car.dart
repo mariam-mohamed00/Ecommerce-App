@@ -3,6 +3,8 @@ import 'package:app_e_commerce/core/theme/my_theme.dart';
 import 'package:app_e_commerce/core/widgets/default_text_form_field.dart';
 import 'package:app_e_commerce/features/cart/presentation/cubit/cart_screen_cubit.dart';
 import 'package:app_e_commerce/features/cart/presentation/cubit/cart_screen_states.dart';
+import 'package:app_e_commerce/features/products/presentation/cubit/product_tab_cubit.dart';
+import 'package:app_e_commerce/features/products/presentation/cubit/product_tab_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,20 +14,29 @@ class SearchWithShoppingCar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(children: [
-      Expanded(
-          child: DefaultTextFormField(
-        hintText: 'What do you search for?',
-        prefixIcon: IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Icons.search,
-              size: 32.sp,
-              color: MyTheme.mainColor.withOpacity(0.75),
-            )),
+    return Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+      Expanded(child: BlocBuilder<ProductTabCubit, ProductTabStates>(
+        builder: (context, state) {
+          return Padding(
+            padding: EdgeInsets.only(left: 12.w),
+            child: DefaultTextFormField(
+              onChanged: (value) {
+                BlocProvider.of<ProductTabCubit>(context).searchProduct(value!);
+              },
+              hintText: 'What do you search for?',
+              prefixIcon: IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.search,
+                    size: 32.sp,
+                    color: MyTheme.mainColor.withOpacity(0.75),
+                  )),
+            ),
+          );
+        },
       )),
       SizedBox(
-        width: 20.w,
+        width: 12.w,
       ),
       Padding(
           padding: EdgeInsets.only(right: 6.w),

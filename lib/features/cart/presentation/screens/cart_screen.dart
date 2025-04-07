@@ -51,12 +51,6 @@ class CartScreen extends StatelessWidget {
                     .titleLarge!
                     .copyWith(color: MyTheme.mainColor),
               ),
-              actions: [
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.search, color: MyTheme.mainColor),
-                ),
-              ],
             ),
             body: state is GetCartSuccessState
                 ? Column(
@@ -91,64 +85,26 @@ class CartScreen extends StatelessWidget {
                         padding: EdgeInsets.only(
                             bottom: 24.h, left: 16.w, right: 16.w),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Column(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(bottom: 12.h),
-                                  child: Text('Total Price',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .titleMedium
-                                          ?.copyWith(
-                                              color: MyTheme.blackColor
-                                                  .withOpacity(0.6))),
-                                ),
-                                Text(
-                                    'EGP ${state.getCartResponseEntity.data?.totalCartPrice}',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium!
-                                        .copyWith(
-                                            fontWeight: FontWeight.bold,
-                                            color: MyTheme.mainColor)),
-                              ],
+                            Padding(
+                              padding: EdgeInsets.only(bottom: 12.h),
+                              child: Text('Total Price',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(
+                                          color: MyTheme.blackColor
+                                              .withOpacity(0.6))),
                             ),
-                            InkWell(
-                              onTap: () {},
-                              child: Container(
-                                height: 60.h,
-                                width: 270.w,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20.r),
-                                    color: MyTheme.mainColor),
-                                child: Padding(
-                                  padding:
-                                      EdgeInsets.only(top: 12.h, bottom: 12.h),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(left: 83.w),
-                                        child: Text('Check out',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .titleMedium),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 27.w, right: 32.w),
-                                        child: Icon(Icons.arrow_forward,
-                                            size: 20.w,
-                                            color: MyTheme.whiteColor),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            )
+                            Text(
+                                'EGP ${state.getCartResponseEntity.data?.totalCartPrice}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleMedium!
+                                    .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: MyTheme.mainColor)),
                           ],
                         ),
                       ),

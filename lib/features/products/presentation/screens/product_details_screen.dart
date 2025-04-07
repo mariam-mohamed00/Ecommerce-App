@@ -36,15 +36,32 @@ class ProductDetailsScreen extends StatelessWidget {
               fontWeight: FontWeight.bold),
           actions: [
             IconButton(
-                padding: EdgeInsets.zero,
-                onPressed: () {},
-                icon: const Icon(Icons.search)),
-            IconButton(
-                padding: EdgeInsets.zero,
-                onPressed: () {
-                  Navigator.pushNamed(context, Routes.cartScreen);
-                },
-                icon: const Icon(Icons.shopping_cart_outlined)),
+              padding: EdgeInsets.zero,
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.cartScreen);
+              },
+              icon: Padding(
+                  padding: EdgeInsets.only(right: 6.w),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(Routes.cartScreen);
+                    },
+                    child: BlocBuilder<CartScreenCubit, CartScreenStates>(
+                      builder: (context, state) {
+                        return Badge(
+                            label: Text(
+                                BlocProvider.of<CartScreenCubit>(context)
+                                    .numOfCartItems
+                                    .toString()),
+                            child: Icon(
+                              Icons.shopping_cart_outlined,
+                              color: MyTheme.mainColor,
+                              size: 28.sp,
+                            ));
+                      },
+                    ),
+                  )),
+            )
           ],
         ),
         body: BlocProvider<ProductTabCubit>(

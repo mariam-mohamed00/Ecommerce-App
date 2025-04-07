@@ -14,6 +14,7 @@ class ProductTabCubit extends Cubit<ProductTabStates> {
       : super(ProductTabInitialState());
 
   List<ProductEntity> productsList = [];
+  List<ProductEntity> allProductsList = [];
 
   void getProducts() async {
     emit(ProductTabLoadingState(loadingMessage: 'Loading...'));
@@ -21,7 +22,8 @@ class ProductTabCubit extends Cubit<ProductTabStates> {
     either.fold((l) {
       emit(ProductTabErrorState(error: l));
     }, (r) {
-      productsList = r.dataList ?? [];
+      allProductsList = r.dataList ?? [];
+      productsList = allProductsList;
       emit(ProductTabSuccessState(productResponseEntity: r));
     });
   }
@@ -34,5 +36,18 @@ class ProductTabCubit extends Cubit<ProductTabStates> {
     }, (r) {
       emit(GetSpesificProductTabSuccessState(specificProductResponseEntity: r));
     });
+  }
+
+  void searchProduct(String query) {
+    if (query.isEmpty) {
+      productsList = allProductsList;
+    } else {
+      productsList = allProductsList
+          .where((product) =>
+              product.title!.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    }
+    emit(ProductTabSuccessState(
+        productResponseEntity: ProductResponseEntity(dataList: productsList)));
   }
 }
