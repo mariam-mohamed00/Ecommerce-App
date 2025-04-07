@@ -114,7 +114,7 @@ class _ProductTabState extends State<ProductTab> {
                     child: CircularProgressIndicator(color: MyTheme.mainColor),
                   )
                 : SizedBox(
-                    height: 650,
+                    height: 600,
                     child: GridView.builder(
                       itemCount: BlocProvider.of<ProductTabCubit>(context)
                           .productsList
