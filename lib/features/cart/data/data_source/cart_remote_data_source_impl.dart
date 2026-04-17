@@ -4,7 +4,9 @@ import 'package:app_e_commerce/features/cart/data/model/api/cart_api_manager.dar
 import 'package:app_e_commerce/features/cart/data/model/response/add_to_cart_response_dto.dart';
 import 'package:app_e_commerce/features/cart/data/model/response/get_cart_response_dto.dart';
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: CartRemoteDataSource)
 class CartRemoteDataSourceImpl implements CartRemoteDataSource {
   CartApiManager cartApiManager;
   CartRemoteDataSourceImpl({required this.cartApiManager});

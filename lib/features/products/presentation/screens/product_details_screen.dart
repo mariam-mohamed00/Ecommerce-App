@@ -1,4 +1,4 @@
-import 'package:app_e_commerce/core/di/di.dart';
+import 'package:app_e_commerce/core/di/injection.dart';
 import 'package:app_e_commerce/core/routing/routes.dart';
 import 'package:app_e_commerce/core/theme/my_theme.dart';
 import 'package:app_e_commerce/features/cart/presentation/cubit/cart_screen_cubit.dart';
@@ -13,9 +13,7 @@ import 'package:readmore/readmore.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   ProductDetailsScreen({super.key});
-  final ProductTabCubit productTabCubit = ProductTabCubit(
-      getProductsUseCase: injectGetProductsUseCase(),
-      getSpecificProductUseCase: injectGetSpecificProductUseCase());
+  final ProductTabCubit productTabCubit = getIt.get<ProductTabCubit>();
 
   @override
   Widget build(BuildContext context) {
@@ -338,7 +336,6 @@ class ProductDetailsScreen extends StatelessWidget {
                               onPressed: () {
                                 BlocProvider.of<CartScreenCubit>(context)
                                     .addToCart(productId.toString());
-                                // count = (count ?? 0) + 1;
                               },
                               style: TextButton.styleFrom(
                                 backgroundColor: MyTheme.mainColor,

@@ -3,7 +3,9 @@ import 'package:app_e_commerce/features/home/domain/use_case/get_brands_use_case
 import 'package:app_e_commerce/features/home/domain/use_case/get_categories_use_case.dart';
 import 'package:app_e_commerce/features/home/presentation/cubit/home_tab_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 
+@singleton
 class HomeTabCubit extends Cubit<HomeTabStates> {
   GetCategoriesUseCase getCategoriesUseCase;
   GetBrandsUseCase getBrandsUseCase;

@@ -3,7 +3,9 @@ import 'package:app_e_commerce/features/auth/data/model/response/auth_response_d
 import 'package:app_e_commerce/core/errors/failures.dart';
 import 'package:app_e_commerce/features/auth/data/data_source/auth_remote_data_source.dart';
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: AuthRemoteDataSource)
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   AuthApiManager authApiManager;
   AuthRemoteDataSourceImpl({required this.authApiManager});

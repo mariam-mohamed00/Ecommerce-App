@@ -6,16 +6,10 @@ import 'package:app_e_commerce/features/home/data/model/response/category_or_bra
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
+import 'package:injectable/injectable.dart';
 
+@lazySingleton
 class HomeApiManager {
-  HomeApiManager._();
-  static HomeApiManager? _instance;
-
-  static HomeApiManager getInstance() {
-    _instance ??= HomeApiManager._();
-    return _instance!;
-  }
-
   Future<Either<Failures, CategoryOrBrandResponseDto>> getCategories() async {
     Uri url =
         Uri.https(ApiConstants.baseUrl, ApiConstants.getCategoriesEndPoint);

@@ -7,7 +7,9 @@ import 'package:app_e_commerce/features/cart/domain/use_case/get_cart_use_case.d
 import 'package:app_e_commerce/features/cart/domain/use_case/update_count_cart_item_use_case.dart';
 import 'package:app_e_commerce/features/cart/presentation/cubit/cart_screen_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 
+@singleton
 class CartScreenCubit extends Cubit<CartScreenStates> {
   AddToCartUseCase addToCartUseCase;
   GetCartUseCase getCartUseCase;

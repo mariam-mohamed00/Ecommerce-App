@@ -6,7 +6,9 @@ import 'package:app_e_commerce/features/wishlist/domain/use_case/delete_wishlist
 import 'package:app_e_commerce/features/wishlist/domain/use_case/get_wishlist_use_case.dart';
 import 'package:app_e_commerce/features/wishlist/presentation/cubit/wishlist_screen_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 
+@singleton
 class WishlistScreenCubit extends Cubit<WishlistTabStates> {
   AddToWishlistUseCase addToWishlistUseCase;
   GetWishlistUseCase getWishlistUseCase;

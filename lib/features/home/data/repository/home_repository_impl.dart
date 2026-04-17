@@ -4,7 +4,9 @@ import 'package:app_e_commerce/features/home/data/mappers/category_or_brand_resp
 import 'package:app_e_commerce/features/home/domain/entity/category_or_brand_response_entity.dart';
 import 'package:app_e_commerce/features/home/domain/repository/home_repository_contract.dart';
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: HomeRepositoryContract)
 class HomeRepositoryImpl implements HomeRepositoryContract {
   HomeRemoteDataSource homeRemoteDataSource;
   HomeRepositoryImpl({required this.homeRemoteDataSource});

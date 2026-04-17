@@ -1,4 +1,4 @@
-import 'package:app_e_commerce/core/di/di.dart';
+import 'package:app_e_commerce/core/di/injection.dart';
 import 'package:app_e_commerce/core/routing/routes.dart';
 import 'package:app_e_commerce/core/theme/my_theme.dart';
 import 'package:app_e_commerce/features/cart/presentation/cubit/cart_screen_cubit.dart';
@@ -14,9 +14,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: must_be_immutable
 class HomeTab extends StatelessWidget {
-  HomeTabCubit homeTabCubit = HomeTabCubit(
-      getCategoriesUseCase: injectGetCategoryUseCase(),
-      getBrandsUseCase: injectGetBrandsUseCase());
+  HomeTabCubit homeTabCubit = getIt.get<HomeTabCubit>();
   HomeTab({super.key});
 
   @override

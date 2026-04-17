@@ -1,4 +1,4 @@
-import 'package:app_e_commerce/core/di/di.dart';
+import 'package:app_e_commerce/core/di/injection.dart';
 import 'package:app_e_commerce/core/routing/routes.dart';
 import 'package:app_e_commerce/features/auth/presentation/cubit/auth_states.dart';
 import 'package:app_e_commerce/features/auth/presentation/cubit/register_cubit.dart';
@@ -20,8 +20,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  RegisterCubit registerCubit =
-      RegisterCubit(registerUseCase: injectRegisterUseCase());
+  RegisterCubit registerCubit = getIt.get<RegisterCubit>();
 
   @override
   Widget build(BuildContext context) {

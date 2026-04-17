@@ -3,7 +3,9 @@ import 'package:app_e_commerce/features/products/domain/use_case/get_products_us
 import 'package:app_e_commerce/features/products/domain/use_case/get_specific_product_use_case.dart';
 import 'package:app_e_commerce/features/products/presentation/cubit/product_tab_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 
+@singleton
 class ProductTabCubit extends Cubit<ProductTabStates> {
   GetProductsUseCase getProductsUseCase;
   GetSpecificProductUseCase getSpecificProductUseCase;

@@ -3,7 +3,9 @@ import 'package:app_e_commerce/features/auth/presentation/cubit/auth_states.dart
 import 'package:app_e_commerce/core/utils/validator.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 
+@singleton
 class LoginCubit extends Cubit<AuthState> {
   LoginUseCase loginUseCase;
   LoginCubit({required this.loginUseCase}) : super(AuthInitial());
@@ -32,7 +34,6 @@ class LoginCubit extends Cubit<AuthState> {
       !(Validator.checkEmail(email) && Validator.checkPassword(password));
 
   void login() async {
-    ///logic
     emit(LoginLoadingState(loadingMessage: 'Loading...'));
     var either = await loginUseCase.invoke(email, password);
     either.fold(

@@ -7,16 +7,10 @@ import 'package:app_e_commerce/features/cart/data/model/response/get_cart_respon
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
+import 'package:injectable/injectable.dart';
 
+@lazySingleton
 class CartApiManager {
-  CartApiManager._();
-  static CartApiManager? _instance;
-
-  static CartApiManager getInstance() {
-    _instance ??= CartApiManager._();
-    return _instance!;
-  }
-
   Future<Either<Failures, AddToCartResponseDto>> addToCart(
       String productId) async {
     Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.addToCartEndPoint);

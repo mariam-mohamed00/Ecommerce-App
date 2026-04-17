@@ -4,7 +4,9 @@ import 'package:app_e_commerce/core/errors/failures.dart';
 import 'package:app_e_commerce/features/auth/data/data_source/auth_remote_data_source.dart';
 import 'package:app_e_commerce/features/auth/domain/repository/auth_repository_contract.dart';
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: AuthRepositoryContract)
 class AuthRepositoryImpl implements AuthRepositoryContract {
   AuthRemoteDataSource authRemoteDataSource;
   AuthRepositoryImpl({required this.authRemoteDataSource});

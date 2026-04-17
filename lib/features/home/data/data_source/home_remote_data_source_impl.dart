@@ -3,7 +3,9 @@ import 'package:app_e_commerce/features/home/data/data_source/home_remote_data_s
 import 'package:app_e_commerce/features/home/data/model/api/home_api_manager.dart';
 import 'package:app_e_commerce/features/home/data/model/response/category_or_brand_response_dto.dart';
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: HomeRemoteDataSource)
 class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   HomeApiManager homeApiManager;
   HomeRemoteDataSourceImpl({required this.homeApiManager});

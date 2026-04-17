@@ -4,7 +4,9 @@ import 'package:app_e_commerce/features/products/data/model/api/product_api_mana
 import 'package:app_e_commerce/features/products/data/model/response/product_response_dto.dart';
 import 'package:app_e_commerce/features/products/data/model/response/specific_product_response_dto.dart';
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: ProductRemoteDataSource)
 class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   ProductApiManager productApiManager;
   ProductRemoteDataSourceImpl({required this.productApiManager});
