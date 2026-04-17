@@ -9,16 +9,10 @@ import 'package:app_e_commerce/features/wishlist/data/model/response/get_wishlis
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
+import 'package:injectable/injectable.dart';
 
+@lazySingleton
 class WishlistApiManager {
-  WishlistApiManager._();
-  static WishlistApiManager? _instance;
-
-  static WishlistApiManager getInstance() {
-    _instance ??= WishlistApiManager._();
-    return _instance!;
-  }
-
   Future<Either<Failures, AddToWishlistResponseDto>> addToWishlist(
       String productId) async {
     Uri url =

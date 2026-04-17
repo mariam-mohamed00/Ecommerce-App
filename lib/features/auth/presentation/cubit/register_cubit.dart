@@ -3,7 +3,9 @@ import 'package:app_e_commerce/features/auth/presentation/cubit/auth_states.dart
 import 'package:app_e_commerce/core/utils/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 
+@singleton
 class RegisterCubit extends Cubit<AuthState> {
   RegisterUseCase registerUseCase;
   RegisterCubit({required this.registerUseCase}) : super(AuthInitial());

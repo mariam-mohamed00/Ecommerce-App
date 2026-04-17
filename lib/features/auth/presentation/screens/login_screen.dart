@@ -1,4 +1,4 @@
-import 'package:app_e_commerce/core/di/di.dart';
+import 'package:app_e_commerce/core/di/injection.dart';
 import 'package:app_e_commerce/core/routing/routes.dart';
 import 'package:app_e_commerce/features/auth/presentation/cubit/auth_states.dart';
 import 'package:app_e_commerce/features/auth/presentation/cubit/login_cubit.dart';
@@ -20,7 +20,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  LoginCubit loginCubit = LoginCubit(loginUseCase: injectLoginUseCase());
+  LoginCubit loginCubit = getIt.get<LoginCubit>();
 
   @override
   Widget build(BuildContext context) {
@@ -149,6 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       actionColor: MyTheme.whiteColor);
                                 }
                               },
+                         
                             ),
                             SizedBox(height: 40.h),
                             TextButton(

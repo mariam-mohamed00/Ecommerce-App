@@ -9,16 +9,10 @@ import 'package:app_e_commerce/features/products/data/model/response/specific_pr
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
+import 'package:injectable/injectable.dart';
 
+@lazySingleton
 class ProductApiManager {
-  ProductApiManager._();
-  static ProductApiManager? _instance;
-
-  static ProductApiManager getInstance() {
-    _instance ??= ProductApiManager._();
-    return _instance!;
-  }
-
   Future<Either<Failures, ProductResponseDto>> getProducts() async {
     Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.getProductsEndPoint);
 

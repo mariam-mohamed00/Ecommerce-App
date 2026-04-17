@@ -1,4 +1,4 @@
-import 'package:app_e_commerce/core/di/di.dart';
+import 'package:app_e_commerce/core/di/injection.dart';
 import 'package:app_e_commerce/core/routing/app_router.dart';
 import 'package:app_e_commerce/core/routing/routes.dart';
 import 'package:app_e_commerce/core/cubit/my_bloc_observer.dart';
@@ -20,21 +20,15 @@ void main() async {
   } else {
     route = Routes.home;
   }
-  Bloc.observer = MyBlocObserver();
+  Bloc.observer = MyBlocObserver(); 
+  configureDependencies();
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider<CartScreenCubit>(
-        create: (context) => CartScreenCubit(
-            addToCartUseCase: injectAddToCartUseCase(),
-            getCartUseCase: injectGetCartUseCase(),
-            deleteCartItemUseCase: injectDeleteCartItemUseCase(),
-            updateCountCartItemUseCase: injectUpdateCountCartItemUseCase()),
+        create: (context) =>  getIt.get<CartScreenCubit>()
       ),
       BlocProvider<WishlistScreenCubit>(
-        create: (context) => WishlistScreenCubit(
-            getWishlistUseCase: injectGetWishlistUseCase(),
-            addToWishlistUseCase: injectAddToWishlistUseCase(),
-            deleteWishlistItemtUseCase: injectDeleteWishlistItemtUseCase()),
+        create: (context) =>getIt.get<WishlistScreenCubit>()
       ),
     ],
     child: MyApp(route),

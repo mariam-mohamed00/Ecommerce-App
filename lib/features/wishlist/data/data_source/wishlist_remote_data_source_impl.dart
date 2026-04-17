@@ -5,7 +5,9 @@ import 'package:app_e_commerce/features/wishlist/data/model/response/add_to_wish
 import 'package:app_e_commerce/features/wishlist/data/model/response/delete_wishlist_item_response_dto.dart';
 import 'package:app_e_commerce/features/wishlist/data/model/response/get_wishlist_response_dto.dart';
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: WishlistRemoteDataSource)
 class WishlistRemoteDataSourceImpl implements WishlistRemoteDataSource {
   WishlistApiManager wishlistApiManager;
   WishlistRemoteDataSourceImpl({required this.wishlistApiManager});

@@ -1,6 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:app_e_commerce/core/di/di.dart';
+import 'package:app_e_commerce/core/di/injection.dart';
 import 'package:app_e_commerce/core/routing/routes.dart';
 import 'package:app_e_commerce/core/theme/my_theme.dart';
 import 'package:app_e_commerce/features/cart/presentation/cubit/cart_screen_cubit.dart';
@@ -23,9 +23,7 @@ class ProductTab extends StatefulWidget {
 }
 
 class _ProductTabState extends State<ProductTab> {
-  final ProductTabCubit productTabCubit = ProductTabCubit(
-      getProductsUseCase: injectGetProductsUseCase(),
-      getSpecificProductUseCase: injectGetSpecificProductUseCase());
+  final ProductTabCubit productTabCubit = getIt.get<ProductTabCubit>();
 
   @override
   Widget build(BuildContext context) {

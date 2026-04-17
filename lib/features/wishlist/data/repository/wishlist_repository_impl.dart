@@ -8,7 +8,9 @@ import 'package:app_e_commerce/features/wishlist/domain/entity/delete_wishlist_i
 import 'package:app_e_commerce/features/wishlist/domain/entity/get_wishlist_response_entity.dart';
 import 'package:app_e_commerce/features/wishlist/domain/repository/wishlist_repository_contract.dart';
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 
+@LazySingleton(as: WishlistRepositoryContract)
 class WishlistRepositoryImpl implements WishlistRepositoryContract {
   WishlistRemoteDataSource wishlistRemoteDataSource;
   WishlistRepositoryImpl({required this.wishlistRemoteDataSource});

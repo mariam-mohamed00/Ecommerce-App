@@ -2,7 +2,9 @@ import 'package:app_e_commerce/features/auth/domain/entity/auth_response_entity.
 import 'package:app_e_commerce/core/errors/failures.dart';
 import 'package:app_e_commerce/features/auth/domain/repository/auth_repository_contract.dart';
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 
+@lazySingleton
 class RegisterUseCase {
   AuthRepositoryContract authRepositoryContract;
   RegisterUseCase({required this.authRepositoryContract});

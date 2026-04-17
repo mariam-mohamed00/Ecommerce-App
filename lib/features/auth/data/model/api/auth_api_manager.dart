@@ -9,16 +9,10 @@ import 'package:app_e_commerce/core/errors/failures.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
+import 'package:injectable/injectable.dart';
 
+@lazySingleton
 class AuthApiManager {
-  AuthApiManager._();
-  static AuthApiManager? _instance;
-
-  static AuthApiManager getInstance() {
-    _instance ??= AuthApiManager._();
-    return _instance!;
-  }
-
   Future<Either<Failures, AuthResponseDto>> register(String name, String email,
       String password, String rePassword, String mobileNumber) async {
     Uri url = Uri.https(ApiConstants.baseUrl, ApiConstants.registerEndPoint);
